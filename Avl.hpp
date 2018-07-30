@@ -5,27 +5,29 @@
 
 class No {
 public:
-	No();
 	Palavra *p;
+	No(Palavra *);
 	No *esq, *dir;
 	int bal;
 	~No();
+private:
 }
 
 class Avl {
 public:
-	Avl();
 	bool vazia();
-	bool insere(Palavra *);
-	bool remove(Palavra *);
+	void insere(Palavra *);
+	void remove(Palavra *);
 	Palavra busca(Palavra *);
 	~Avl();
 private:
-	int bal(No *);
-	No *rotEE(No *);
-	No *rotDD(No *);
+	No *raiz;
+	No *balancear(No *);
+	No *rotE(No *);
+	No *rotD(No *);
 	No *rotED(No *);
 	No *rotDE(No *);
+	int altura(No *);
 };
 
 #endif

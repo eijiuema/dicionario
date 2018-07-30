@@ -4,7 +4,7 @@
 class Palavra
 {
 public:
-	Palavra(std::string palavra);
+	Palavra(std::string);
 	bool semelhante(Palavra);
 	~Palavra();
 private:
