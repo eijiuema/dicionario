@@ -10,7 +10,7 @@ public:
 	No *esq, *dir;
 	int alt;
 private:
-}
+};
 
 class Avl {
 public:
@@ -18,6 +18,7 @@ public:
 	void insere(Palavra *p);
 	void remove(Palavra p);
 	Palavra busca(Palavra p);
+	Avl();
 	~Avl();
 private:
 	No *raiz;
