@@ -1,5 +1,7 @@
 #ifndef PALAVRA
 #define PALAVRA
+#include <string>
+#include <fstream>
 
 #include <iostream>
 #include <string>
@@ -7,15 +9,19 @@
 class Palavra
 {
 public:
-	Palavra(std::string = "");
-	bool semelhante(Palavra);
+	Palavra(std::string, std::string);
+	bool semelhante(Palavra) const;
+	void escreverPalavra(std::ostream &) const;
+	std::string getPalavra() const;
+	std::string getDelimitadores() const;
+	void modificarPalavra(std::string);
+
+	bool operator == (Palavra) const;
+	bool operator < (Palavra) const;
+	bool operator > (Palavra) const;
+private:
+	std::string delimitadores;
 	std::string palavra;
 };
-
-bool operator == (Palavra &, Palavra &);
-bool operator < (Palavra &, Palavra &);
-bool operator > (Palavra &, Palavra &);
-std::ostream &operator << (std::ostream&, const Palavra &);
-std::istream &operator >> (std::istream&, Palavra &);
 
 #endif
