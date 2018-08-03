@@ -1,7 +1,9 @@
 #ifndef AVL
 #define AVL
 
-#include "Palavra.hpp";
+#include <iostream>
+#include <stack>
+#include "Palavra.hpp"
 
 class No {
 public:
@@ -9,28 +11,28 @@ public:
 	No(Palavra p);
 	No *esq, *dir;
 	int alt;
-private:
 };
 
 class Avl {
 public:
-	bool vazia();
-	void insere(Palavra *p);
-	void remove(Palavra p);
-	Palavra busca(Palavra p);
 	Avl();
 	~Avl();
+	bool vazia();
+	void insere(Palavra p);
+	void remove(Palavra p);
+	bool busca(Palavra p);
+	void printInOrder();
 private:
 	No *raiz;
-	No *insereNo(No *raiz, No *no);
+	No *insereNo(No *raiz, Palavra p);
 	No *buscaNo(No *raiz, Palavra p);
-	No *removeNo(No *raiz, No *no);
+	No *removeNo(No *raiz, Palavra p);
 	No *menorNo(No *raiz);
-	No *balancear(No *);
-	No *rotE(No *);
-	No *rotD(No *);
-	No *rotED(No *);
-	No *rotDE(No *);
+	int calcBal(No *raiz);
+	int altura(No *raiz);
+	No *rotE(No *raiz);
+	No *rotD(No *raiz);
+	void printInOrderNo(No *raiz);
 };
 
 #endif
