@@ -3,7 +3,7 @@
 #include <chrono>
 #include <map>
 
-struct Timer
+class Timer
 {
 private:
 	typedef std::chrono::high_resolution_clock clock;
