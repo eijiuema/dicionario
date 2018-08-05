@@ -12,9 +12,9 @@ public:
 	std::string palavra;
 };
 
-bool operator == (Palavra &, Palavra &);
-bool operator < (Palavra &, Palavra &);
-bool operator > (Palavra &, Palavra &);
+bool operator == (const Palavra &, const Palavra &);
+bool operator < (const Palavra &, const Palavra &);
+bool operator > (const Palavra &, const Palavra &);
 std::ostream &operator << (std::ostream&, const Palavra &);
 std::istream &operator >> (std::istream&, Palavra &);
 
