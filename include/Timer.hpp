@@ -7,8 +7,8 @@ class Timer
 {
 private:
 	typedef std::chrono::high_resolution_clock clock;
+	static std::map<std::string, clock::time_point> timers;
 	static clock clk;
-	clock::time_point start;
 
 public:
 	using ns = std::chrono::nanoseconds;
@@ -16,10 +16,10 @@ public:
 	using ms = std::chrono::milliseconds;
 	using s = std::chrono::seconds;
 
-	Timer() noexcept;
-	template<class T> T elapsed() const noexcept
+	static void start(const std::string &id) noexcept;
+	template<class T> T static elapsed(const std::string &id) noexcept
 	{
-		return std::chrono::duration_cast<T>(clk.now() - start);
+		return std::chrono::duration_cast<T>(clk.now() - timers[id]);
 	}
 };
 

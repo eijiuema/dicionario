@@ -1,6 +1,8 @@
 #include "Timer.hpp"
 
-Timer::Timer() noexcept
+std::map<std::string, Timer::clock::time_point> Timer::timers;
+
+void Timer::start(const std::string &id) noexcept
 {
-	start = Timer::clk.now();
+	timers[id] = clk.now();
 }
