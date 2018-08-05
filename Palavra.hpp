@@ -7,15 +7,16 @@
 class Palavra
 {
 public:
-	Palavra(std::string = "");
-	bool semelhante(Palavra);
-	std::string palavra;
-};
+	Palavra(const std::string);
+	bool semelhante(const Palavra&) const;
 
-bool operator == (const Palavra &, const Palavra &);
-bool operator < (const Palavra &, const Palavra &);
-bool operator > (const Palavra &, const Palavra &);
-std::ostream &operator << (std::ostream&, const Palavra &);
-std::istream &operator >> (std::istream&, Palavra &);
+	bool operator == (const Palavra&) const;
+	bool operator < (const Palavra&) const;
+	bool operator > (const Palavra&) const;
+	std::ostream &operator << (std::ostream&, const Palavra&) const;
+	std::istream &operator >> (std::istream& is, Palavra &p);
+private:
+	const std::string palavra;
+};
 
 #endif
