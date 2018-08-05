@@ -6,11 +6,10 @@ int main() {
 
 	Arvore arvore;
 
-	Palavra p;
-
 	for(int i = 0; i < 16534; i++) {
-		std::cin >> p;
-		arvore.insere(p);
+		std::string palavra;
+		std::cin >> palavra;
+		arvore.insere(Palavra(palavra));
 	}
 
 	arvore.printInOrder();

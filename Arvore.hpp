@@ -11,22 +11,23 @@ public:
 	Arvore();
 	~Arvore();
 	bool vazia();
-	void insere(Palavra p);
-	void remove(Palavra p);
-	bool busca(Palavra p);
+	void insere(const Palavra p);
+	void remove(const Palavra p);
+	bool busca(const Palavra p);
 	void printInOrder();
 private:
 	class No {
 	public:
+		No(const Palavra& p);
+		No operator= (const Arvore::No& no);
 		Palavra p;
-		No(Palavra p);
 		No *esq, *dir;
 		int alt;
 	};
 	No *raiz;
-	No *insereNo(No *raiz, Palavra p);
-	No *buscaNo(No *raiz, Palavra p);
-	No *removeNo(No *raiz, Palavra p);
+	No *insereNo(No *raiz, const Palavra& p);
+	No *buscaNo(No *raiz, const Palavra& p);
+	No *removeNo(No *raiz, const Palavra& p);
 	No *menorNo(No *raiz);
 	int calcBal(No *raiz);
 	int altura(No *raiz);

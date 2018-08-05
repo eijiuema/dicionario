@@ -1,17 +1,27 @@
 #include "Arvore.hpp"
 #include "Palavra.hpp"
 
-Arvore::No::No(Palavra p) {
-	this->p = p;
+Arvore::No::No(const Palavra& p) : p(p)
+{
 	this->esq = this->dir = nullptr;
 	this->alt = 1;
 }
 
-Arvore::Arvore() {
+Arvore::No Arvore::No::operator= (const Arvore::No& no)
+{
+	p = no.p;
+	esq = no.esq;
+	dir = no.dir;
+	alt = no.alt;
+}
+
+Arvore::Arvore()
+{
 	this->raiz = nullptr;
 }
 
-Arvore::~Arvore() {
+Arvore::~Arvore()
+{
 
 	std::stack<No*> stack;
 
@@ -34,24 +44,29 @@ Arvore::~Arvore() {
 
 }
 
-bool Arvore::vazia() {
+bool Arvore::vazia()
+{
 	return this->raiz = nullptr;
 }
 
-void Arvore::insere(Palavra p) {
+void Arvore::insere(const Palavra p)
+{
 	this->raiz = insereNo(this->raiz, p);
 }
 
-void Arvore::remove(Palavra p) {
+void Arvore::remove(const Palavra p)
+{
 	this->raiz = removeNo(this->raiz, p);
 }
 
-void Arvore::printInOrder() {
+void Arvore::printInOrder()
+{
 	printInOrderNo(this->raiz);
 	std::cout << std::endl;
 }
 
-Arvore::No *Arvore::insereNo(Arvore::No *raiz, Palavra p) {
+Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
+{
 	if(raiz == nullptr) {
 		return new No(p);
 	} else if(p < raiz->p) {
@@ -85,11 +100,13 @@ Arvore::No *Arvore::insereNo(Arvore::No *raiz, Palavra p) {
 	return raiz;
 }
 
-bool Arvore::busca(Palavra p) {
+bool Arvore::busca(const Palavra p)
+{
 	return buscaNo(this->raiz, p) != nullptr;
 }
 
-Arvore::No *Arvore::buscaNo(Arvore::No *raiz, Palavra p) {
+Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p)
+{
 	if(raiz == nullptr) {
 		return 0;
 	} else if(raiz->p == p) {
@@ -101,7 +118,7 @@ Arvore::No *Arvore::buscaNo(Arvore::No *raiz, Palavra p) {
 	}
 }
 
-Arvore::No *Arvore::removeNo(Arvore::No *raiz, Palavra p) {
+Arvore::No *Arvore::removeNo(Arvore::No *raiz, const Palavra& p) {
 	if(raiz == nullptr) {
 		return nullptr;
 	} else if(p < raiz->p) {
@@ -166,7 +183,8 @@ Arvore::No *Arvore::removeNo(Arvore::No *raiz, Palavra p) {
 	return raiz;
 }
 
-Arvore::No *Arvore::menorNo(Arvore::No *raiz) {
+Arvore::No *Arvore::menorNo(Arvore::No *raiz)
+{
 	if(raiz->esq == nullptr) {
 		return raiz;
 	} else {
@@ -174,19 +192,22 @@ Arvore::No *Arvore::menorNo(Arvore::No *raiz) {
 	}
 }
 
-int Arvore::calcBal(Arvore::No *raiz) {
+int Arvore::calcBal(Arvore::No *raiz)
+{
 	if(raiz == nullptr)
 		return 0;
 	return altura(raiz->esq) - altura(raiz->dir);
 }
 
-int Arvore::altura(Arvore::No *raiz) {
+int Arvore::altura(Arvore::No *raiz)
+{
 	if(raiz == nullptr)
 		return 0;
 	return raiz->alt;
 }
 
-Arvore::No *Arvore::rotE(Arvore::No *raiz) {
+Arvore::No *Arvore::rotE(Arvore::No *raiz)
+{
 	Arvore::No *nova_raiz = raiz->dir;
 	Arvore::No *temp = nova_raiz->esq;
 
@@ -199,7 +220,8 @@ Arvore::No *Arvore::rotE(Arvore::No *raiz) {
 	return nova_raiz;
 }
 
-Arvore::No *Arvore::rotD(Arvore::No *raiz) {
+Arvore::No *Arvore::rotD(Arvore::No *raiz)
+{
 	Arvore::No *nova_raiz = raiz->esq;
 	Arvore::No *temp = nova_raiz->dir;
 
@@ -212,7 +234,8 @@ Arvore::No *Arvore::rotD(Arvore::No *raiz) {
 	return nova_raiz;
 }
 
-void Arvore::printInOrderNo(Arvore::No *raiz) {
+void Arvore::printInOrderNo(Arvore::No *raiz)
+{
 	if(raiz == nullptr)
 		return;
 

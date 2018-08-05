@@ -1,31 +1,43 @@
 #include "Palavra.hpp"
 
-Palavra::Palavra(const std::string palavra), palavra(palavra)
+Palavra::Palavra(const std::string palavra) : palavra(palavra)
 { }
 
-bool Palavra::semelhante(Palavra palavra) const
+Palavra::Palavra(const Palavra& p) : palavra(p.palavra)
+{ }
+
+Palavra Palavra::operator=(const Palavra& p)
+{
+	return Palavra(p.palavra);
+}
+
+bool Palavra::semelhante(const Palavra& palavra) const
 {
 	return this->palavra[0] == palavra.palavra[0]
 		&& this->palavra[1] == palavra.palavra[1];
 }
 
-bool operator == (const Palavra &p, const Palavra &pp) {
-	return p.palavra == pp.palavra;
+bool Palavra::operator == (const Palavra &p) const
+{
+	return palavra == p.palavra;
 }
 
-bool operator < (const Palavra &p, const Palavra &pp) {
-	return p.palavra < pp.palavra;
+bool Palavra::operator < (const Palavra &p) const
+{
+	return palavra < p.palavra;
 }
 
-bool operator > (const Palavra &p, const Palavra &pp) {
-	return p.palavra > pp.palavra;
+bool Palavra::operator > (const Palavra &p) const
+{
+	return palavra > p.palavra;
 }
 
-
-std::ostream &operator << (std::ostream& os, const Palavra &p) {
-	return os << p.palavra;
+std::string Palavra::getPalavra() const
+{
+	return palavra;
 }
 
-std::istream &operator >> (std::istream& is, Palavra &p) {
-	return is >> p.palavra;
+std::ostream &operator << (std::ostream& os, const Palavra &p)
+{
+	return os << p.getPalavra();
 }
