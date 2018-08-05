@@ -39,6 +39,13 @@
 		"xtr1common": "cpp",
 		"xutility": "cpp",
 		"cctype": "cpp",
-		"sstream": "cpp"
+		"sstream": "cpp",
+		"algorithm": "cpp",
+		"deque": "cpp",
+		"stack": "cpp",
+		"chrono": "cpp",
+		"map": "cpp",
+		"ratio": "cpp",
+		"xtree": "cpp"
 	}
 }
