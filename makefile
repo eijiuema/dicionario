@@ -15,13 +15,16 @@ CFLAGS=-I$(INC) $(EF) -std=c++14
 all: build docs
 
 debug: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
-	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -DDEBUG -L$(LIB) $(LIBS) -o$(BIN)/corretor
+	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -Og -DDEBUG -L$(LIB) $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 	cd $(BIN) && gdb corretor
 
 build: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
 	$(CC) $(SRC)/main.cpp $(CFLAGS) -L$(LIB) $(LIBS) -Ofast -o$(BIN)/corretor
 	cp data/* $(BIN)/.
+
+run: build
+	cd $(BIN) && ./corretor
 
 Dicionario: Dicionario.a Arvore.o Palavra.o
 	$(CC) $(CFLAGS) -L$(LIB) $(LIBS) -o$(BIN)/dicionario
