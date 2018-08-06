@@ -106,7 +106,8 @@ bool Arvore::busca(const Palavra& p) const
 }
 
 std::vector<Palavra> Arvore::buscaSemelhantes(const Palavra& p) {
-	buscaNoSemelhante(this->raiz, p);
+	std::vector<Palavra> semelhantes;
+	buscaNoSemelhante(this->raiz, p, semelhantes);
 	return semelhantes;
 }
 
@@ -123,17 +124,19 @@ Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p) const
 	}
 }
 
-void Arvore::buscaNoSemelhante(Arvore::No *raiz, const Palavra& p)
+void Arvore::buscaNoSemelhante(Arvore::No *raiz, const Palavra& p, std::vector<Palavra>& semelhantes)
 {
-	if(raiz == nullptr)
+	if(raiz == nullptr) {
 		return;
-
-	if(raiz->p.semelhante(p))
+	} else if(raiz->p.semelhante(p) < 0) {
+		buscaNoSemelhante(raiz->dir, p, semelhantes);
+	} else if(raiz->p.semelhante(p) > 0) {
+		buscaNoSemelhante(raiz->esq, p, semelhantes);
+	} else {
+		buscaNoSemelhante(raiz->esq, p, semelhantes);
 		semelhantes.push_back(raiz->p);
-
-	buscaNoSemelhante(raiz->esq, p);
-	buscaNoSemelhante(raiz->dir, p);
-
+		buscaNoSemelhante(raiz->dir, p, semelhantes);
+	}
 }
 
 Arvore::No *Arvore::removeNo(Arvore::No *raiz, const Palavra& p) {

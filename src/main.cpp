@@ -16,6 +16,8 @@ int main(void)
 	for(auto &palavra : semelhantes)
 		std::wcout << palavra.getPalavra() << std::endl;
 
+	std::cout << semelhantes.size() << std::endl;
+
 	// Palavra palavra1("palavra1");
 	// Palavra palavra2("palavra2");
 	// Palavra palavra3("valavra3");

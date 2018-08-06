@@ -12,7 +12,7 @@ public:
 	Palavra(const std::wstring);
 	Palavra(const Palavra&);
 	Palavra operator=(const Palavra& p);
-	bool semelhante(const Palavra&) const;
+	int semelhante(const Palavra&) const;
 	bool operator == (const Palavra&) const;
 	bool operator < (const Palavra&) const;
 	bool operator > (const Palavra&) const;
