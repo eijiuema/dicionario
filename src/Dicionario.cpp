@@ -1,16 +1,27 @@
-#include "Arvore.hpp"
-#include "Palavra.hpp"
-#include <ostream>
+#include "Dicionario.hpp"
 
-int main() {
+Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
+{
+	std::ifstream inputStream(arquivo);
 
-	Arvore arvore;
+	if(inputStream.bad() || (int)inputStream.tellg() == -1)
+		throw std::runtime_error("Could not open file.");
 
-	for(int i = 0; i < 16534; i++) {
+	while(!inputStream.eof()) {
 		std::string palavra;
-		std::cin >> palavra;
+		inputStream >> palavra;
 		arvore.insere(Palavra(palavra));
 	}
 
 	arvore.printInOrder();
+}
+
+bool Dicionario::buscaPalavra(const Palavra& palavra) const noexcept
+{
+	return arvore.busca(palavra);
+}
+
+std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) const noexcept
+{
+
 }

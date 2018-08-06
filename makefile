@@ -23,6 +23,9 @@ build: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
 	$(CC) $(SRC)/main.cpp $(CFLAGS) -L$(LIB) $(LIBS) -Ofast -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 
+run: build
+	cd $(BIN) && ./corretor
+
 Dicionario: Dicionario.a Arvore.o Palavra.o
 	$(CC) $(CFLAGS) -L$(LIB) $(LIBS) -o$(BIN)/dicionario
 

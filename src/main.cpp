@@ -1,21 +1,32 @@
 #include "Texto.hpp"
 #include "Palavra.hpp"
 #include "Timer.hpp"
+#include "Dicionario.hpp"
 #include <iostream>
+#include <locale>
 
 int main(void)
 {
-	Palavra palavra1("palavra1");
-	Palavra palavra2("palavra2");
-	Palavra palavra3("valavra3");
-	Palavra empty("");
-	// Testes:
+	std::wcin.imbue(std::locale(""));
+	std::wcout.imbue(std::locale(""));
+
+	std::wstring palavra;
+
+	std::cin >> palavra;
+
+	std::cout << palavra;
+	// Dicionario dicionario("dic.txt");
+	// Palavra palavra1("palavra1");
+	// Palavra palavra2("palavra2");
+	// Palavra palavra3("valavra3");
+	// Palavra empty("");
+	// // Testes:
 	// std::cout << palavra1.semelhante(palavra2) << std::endl
 	// 	<< palavra2.semelhante(palavra3) << std::endl
 	// 	<< (palavra1 == palavra2) << std::endl
 	// 	<< (palavra1 < palavra2) << std::endl
 	// 	<< (palavra1 > palavra2) << std::endl;
-	// Bee movie: (glhf reading the output)
+	// // Bee movie: (glhf reading the output)
 	// try
 	// {
 	// 	Texto texto("bee-movie.txt");
