@@ -46,7 +46,7 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 
 		// After all of this wcreate a safe pointer and store the buffers' info in it
 		delimitadores.push_back(punctBuffer.str());
-		// palavras.emplace_back(new Palavra(wordBuffer.str()));
+		palavras.emplace_back(new Palavra(wordBuffer.str()));
 
 		// Clear the buffers' contents so we don't get trash
 		punctBuffer.str(L"");
@@ -70,6 +70,7 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 void Texto::salvarArquivo(std::wostream& outputStream) const noexcept
 {
 	auto i = 0;
+	std::cout << palavras.size();
 	for(auto &palavra : palavras)
 		outputStream << delimitadores[i++] << *palavra;
 }
