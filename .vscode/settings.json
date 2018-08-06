@@ -46,6 +46,10 @@
 		"chrono": "cpp",
 		"map": "cpp",
 		"ratio": "cpp",
-		"xtree": "cpp"
+		"xtree": "cpp",
+		"locale": "cpp",
+		"*.tcc": "cpp",
+		"array": "cpp",
+		"functional": "cpp"
 	}
 }

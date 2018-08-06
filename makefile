@@ -15,7 +15,7 @@ CFLAGS=-I$(INC) $(EF) -std=c++14
 all: build docs
 
 debug: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
-	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -DDEBUG -L$(LIB) $(LIBS) -o$(BIN)/corretor
+	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -Og -DDEBUG -L$(LIB) $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 	cd $(BIN) && gdb corretor
 
