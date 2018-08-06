@@ -49,12 +49,12 @@ bool Arvore::vazia()
 	return this->raiz = nullptr;
 }
 
-void Arvore::insere(const Palavra p)
+void Arvore::insere(const Palavra& p)
 {
 	this->raiz = insereNo(this->raiz, p);
 }
 
-void Arvore::remove(const Palavra p)
+void Arvore::remove(const Palavra& p)
 {
 	this->raiz = removeNo(this->raiz, p);
 }
@@ -100,12 +100,12 @@ Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
 	return raiz;
 }
 
-bool Arvore::busca(const Palavra p)
+bool Arvore::busca(const Palavra& p) const
 {
 	return buscaNo(this->raiz, p) != nullptr;
 }
 
-Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p)
+Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p) const
 {
 	if(raiz == nullptr) {
 		return 0;
@@ -116,6 +116,19 @@ Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p)
 	} else {
 		return buscaNo(raiz->dir, p);
 	}
+}
+
+void Arvore::buscaNoSemelhante(Arvore::No *raiz, const Palavra& p)
+{
+	if(raiz == nullptr)
+		return;
+
+	if(raiz->p.semelhante(p))
+		semelhantes.push_back(raiz->p);
+
+	buscaNoSemelhante(raiz->esq, p);
+	buscaNoSemelhante(raiz->dir, p);
+
 }
 
 Arvore::No *Arvore::removeNo(Arvore::No *raiz, const Palavra& p) {

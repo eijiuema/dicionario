@@ -44,7 +44,7 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 
 		// After all of this create a safe pointer and store the buffers' info in it
 		delimitadores.push_back(punctBuffer.str());
-		palavras.emplace_back(new Palavra(wordBuffer.str()));
+		// palavras.emplace_back(new Palavra(wordBuffer.str()));
 
 		// Clear the buffers' contents so we don't get trash
 		punctBuffer.str("");
