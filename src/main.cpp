@@ -4,18 +4,18 @@
 #include "Dicionario.hpp"
 #include <iostream>
 #include <locale>
+#include <vector>
 
 int main(void)
 {
-	std::wcin.imbue(std::locale(""));
-	std::wcout.imbue(std::locale(""));
+	setlocale(LC_ALL, "C.UTF-8");
+	Dicionario dicionario("dic.txt");
 
-	std::wstring palavra;
+	std::vector<Palavra> semelhantes = dicionario.buscaSemelhantes(Palavra(L"abacaxi"));
 
-	std::cin >> palavra;
+	for(auto &palavra : semelhantes)
+		std::wcout << palavra.getPalavra() << std::endl;
 
-	std::cout << palavra;
-	// Dicionario dicionario("dic.txt");
 	// Palavra palavra1("palavra1");
 	// Palavra palavra2("palavra2");
 	// Palavra palavra3("valavra3");

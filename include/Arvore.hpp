@@ -14,7 +14,7 @@ public:
 	void insere(const Palavra& p);
 	void remove(const Palavra& p);
 	bool busca(const Palavra& p) const;
-	std::vector<Palavra> buscaSemelhante(const Palavra& p);
+	std::unique_ptr<std::vector<Palavra>> buscaSemelhantes(const Palavra& p);
 	void printInOrder();
 private:
 	std::vector<Palavra> semelhantes;

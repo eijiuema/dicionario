@@ -7,18 +7,18 @@
 class Palavra
 {
 private:
-	const std::string palavra;
+	const std::wstring palavra;
 public:
-	Palavra(const std::string);
+	Palavra(const std::wstring);
 	Palavra(const Palavra&);
 	Palavra operator=(const Palavra& p);
 	bool semelhante(const Palavra&) const;
 	bool operator == (const Palavra&) const;
 	bool operator < (const Palavra&) const;
 	bool operator > (const Palavra&) const;
-	std::string getPalavra() const;
+	std::wstring getPalavra() const;
 };
 
-std::ostream &operator << (std::ostream& os, const Palavra& p)
+std::wostream &operator << (std::wostream&, const Palavra&);
 
 #endif

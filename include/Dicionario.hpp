@@ -19,7 +19,7 @@ private:
 public:
 	Dicionario(const std::string& arquivo);
 	bool buscaPalavra(const Palavra& palavra) const noexcept;
-	std::vector<Palavra> buscaSemelhantes(const Palavra& palavra) const noexcept;
+	std::vector<Palavra> buscaSemelhantes(const Palavra& palavra) noexcept;
 	// ~Dicionario();
 };
 

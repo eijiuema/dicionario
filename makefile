@@ -42,8 +42,8 @@ docs: dirs
 	cp "$(DOCS)/latex/refman.pdf" "$(BIN)/documentação.pdf"
 
 Texto.a: $(SRC)/Texto.cpp $(INC)/Texto.hpp dirs Palavra.a Timer.a
-	$(CC) $(CFLAGS) -c $(SRC)/Texto.cpp -o$(OBJ)/Texto.o
-	ar -cr $(LIB)/libTexto.a $(OBJ)/Texto.o
+	# $(CC) $(CFLAGS) -c $(SRC)/Texto.cpp -o$(OBJ)/Texto.o
+	# ar -cr $(LIB)/libTexto.a $(OBJ)/Texto.o
 
 Dicionario.a: $(SRC)/Dicionario.cpp $(INC)/Dicionario.hpp dirs Arvore.a
 	$(CC) $(CFLAGS) -c $(SRC)/Dicionario.cpp -o$(OBJ)/Dicionario.o

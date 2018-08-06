@@ -1,6 +1,6 @@
 #include "Palavra.hpp"
 
-Palavra::Palavra(const std::string palavra) : palavra(palavra)
+Palavra::Palavra(const std::wstring palavra) : palavra(palavra)
 { }
 
 Palavra::Palavra(const Palavra& p) : palavra(p.palavra)
@@ -32,12 +32,12 @@ bool Palavra::operator > (const Palavra& p) const
 	return palavra > p.palavra;
 }
 
-std::string Palavra::getPalavra() const
+std::wstring Palavra::getPalavra() const
 {
 	return palavra;
 }
 
-std::ostream &operator << (std::ostream& os, const Palavra& p)
+std::wostream &operator << (std::wostream& wos, const Palavra& p)
 {
-	return os << p.getPalavra();
+	return wos << p.getPalavra();
 }

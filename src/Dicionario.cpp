@@ -2,18 +2,18 @@
 
 Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 {
-	std::ifstream inputStream(arquivo);
+	std::wifstream inputStream(arquivo);
 
-	if(inputStream.bad() || (int)inputStream.tellg() == -1)
+	inputStream.imbue(std::locale(""));
+
+	if(!inputStream)
 		throw std::runtime_error("Could not open file.");
 
 	while(!inputStream.eof()) {
-		std::string palavra;
+		std::wstring palavra;
 		inputStream >> palavra;
 		arvore.insere(Palavra(palavra));
 	}
-
-	arvore.printInOrder();
 }
 
 bool Dicionario::buscaPalavra(const Palavra& palavra) const noexcept
@@ -21,7 +21,7 @@ bool Dicionario::buscaPalavra(const Palavra& palavra) const noexcept
 	return arvore.busca(palavra);
 }
 
-std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) const noexcept
+std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) noexcept
 {
-
+	return arvore.buscaSemelhantes(palavra);
 }

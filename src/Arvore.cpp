@@ -62,7 +62,7 @@ void Arvore::remove(const Palavra& p)
 void Arvore::printInOrder()
 {
 	printInOrderNo(this->raiz);
-	std::cout << std::endl;
+	std::wcout << std::endl;
 }
 
 Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
@@ -103,6 +103,11 @@ Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
 bool Arvore::busca(const Palavra& p) const
 {
 	return buscaNo(this->raiz, p) != nullptr;
+}
+
+std::vector<Palavra> Arvore::buscaSemelhantes(const Palavra& p) {
+	buscaNoSemelhante(this->raiz, p);
+	return semelhantes;
 }
 
 Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p) const
@@ -253,6 +258,6 @@ void Arvore::printInOrderNo(Arvore::No *raiz)
 		return;
 
 	printInOrderNo(raiz->esq);
-	std::cout << raiz->p << ' ';
+	std::wcout << raiz->p << ' ';
 	printInOrderNo(raiz->dir);
 }
