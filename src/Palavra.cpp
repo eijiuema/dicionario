@@ -11,10 +11,15 @@ Palavra Palavra::operator=(const Palavra& p)
 	return Palavra(p.palavra);
 }
 
-bool Palavra::semelhante(const Palavra& palavra) const
+int Palavra::semelhante(const Palavra& palavra) const
 {
-	return this->palavra[0] == palavra.palavra[0]
-		&& this->palavra[1] == palavra.palavra[1];
+	if(this->palavra.substr(0, 2) < palavra.palavra.substr(0, 2)) {
+		return -1;
+	} else if(this->palavra.substr(0, 2) > palavra.palavra.substr(0, 2)) {
+		return 1;
+	} else {
+		return 0;
+	}
 }
 
 bool Palavra::operator == (const Palavra& p) const
