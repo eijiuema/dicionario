@@ -17,38 +17,40 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 	Timer::start("Texto::_ctor");
 #endif
 	int lastPos = -1;
-	std::stringstream wordBuffer, punctBuffer;
-	std::ifstream inputStream(fn);
+	std::wstringstream wordBuffer, punctBuffer;
+	std::locale loc("pt_BR.UTF-8");
+	std::wifstream inputStream(fn);
+	inputStream.imbue(loc);
 
 #ifdef TIME_TEXTO
 	Timer::start("Texto::_ctor loop");
 #endif
-	if(inputStream.bad() || (int)inputStream.tellg() == -1)
+	if(!inputStream)
 		throw std::runtime_error("Could not open file.");
 
 	while(!inputStream.eof())
 	{
 		if(lastPos == inputStream.tellg())
 		{
-			std::cerr << "Stuck on letter '" << (char)inputStream.peek() << "' (offset"
-			<< std::hex << inputStream.tellg() << std::dec << ")" << std::endl;
-			std::cerr.flush();
+			std::wcerr << L"Stuck on letter '" << (char)inputStream.peek() << L"' (offset"
+			<< std::hex << inputStream.tellg() << std::dec << L")" << std::endl;
+			std::wcerr.flush();
 			throw std::runtime_error("Stuck on letter.");
 		}
 		// Read all leading punctuation and spaces
-		while(ispunct(inputStream.peek()) || isspace(inputStream.peek()))
+		while(ispunct((wchar_t) inputStream.peek(), loc) || isspace((wchar_t) inputStream.peek(), loc))
 			punctBuffer << (char) inputStream.get();
 		// Then go after the word itself
-		while(isalnum(inputStream.peek()) || inputStream.peek() == '-' || inputStream.peek() == '\'')
+		while(isalnum((wchar_t) inputStream.peek(), loc) || inputStream.peek() == '-' || inputStream.peek() == '\'')
 			wordBuffer << (char) inputStream.get();
 
-		// After all of this create a safe pointer and store the buffers' info in it
+		// After all of this wcreate a safe pointer and store the buffers' info in it
 		delimitadores.push_back(punctBuffer.str());
 		// palavras.emplace_back(new Palavra(wordBuffer.str()));
 
 		// Clear the buffers' contents so we don't get trash
-		punctBuffer.str("");
-		wordBuffer.str("");
+		punctBuffer.str(L"");
+		wordBuffer.str(L"");
 	}
 #ifdef TIME_TEXTO
 	wordAvg = (Timer::elapsed<Timer::us>("Texto::_ctor loop") / (double) palavras.size()).count();
@@ -59,13 +61,13 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 	palavras.shrink_to_fit();
 
 #ifdef TIME_TEXTO
-		std::cerr << Timer::elapsed<Timer::us>("Texto::_ctor").count()
-			<< "μs elapsed parsing the whole file, with an average of "
-			<< wordAvg << "μs per word." << std::endl;
+		std::wcerr << Timer::elapsed<Timer::ms>("Texto::_ctor").count()
+			<< L"ms elapsed parsing the whole file, with an average of "
+			<< wordAvg << "μs per word, with a total of " << palavras.size() << " words." << std::endl;
 #endif
 }
 
-void Texto::salvarArquivo(std::ostream& outputStream) const noexcept
+void Texto::salvarArquivo(std::wostream& outputStream) const noexcept
 {
 	auto i = 0;
 	for(auto &palavra : palavras)

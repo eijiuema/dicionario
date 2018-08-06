@@ -11,13 +11,13 @@ class Texto
 {
 private:
 	std::string nomeArquivo;
-	std::vector<std::string> delimitadores;
+	std::vector<std::wstring> delimitadores;
 	std::vector<std::unique_ptr<Palavra>> palavras;
 public:
 	Texto(const char*);
 	Texto(const std::string &);
 
-	void salvarArquivo(std::ostream &) const noexcept;
+	void salvarArquivo(std::wostream &) const noexcept;
 	void modificarPalavra(const int &, const Palavra &);
 	const std::vector<std::unique_ptr<Palavra>>& getPalavras() const noexcept;
 };
