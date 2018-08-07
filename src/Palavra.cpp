@@ -46,3 +46,13 @@ std::wostream &operator << (std::wostream& wos, const Palavra& p)
 {
 	return wos << p.getPalavra();
 }
+
+std::wstring operator + (const std::wstring string, const Palavra& palavra)
+{
+	return string + palavra.getPalavra();
+}
+
+std::wstring operator + (const Palavra& palavra, const std::wstring string)
+{
+	return palavra.getPalavra() + string;
+}

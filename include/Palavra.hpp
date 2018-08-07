@@ -19,6 +19,8 @@ public:
 	std::wstring getPalavra() const;
 };
 
+std::wstring operator + (const std::wstring, const Palavra&);
+std::wstring operator + (const Palavra&, const std::wstring);
 std::wostream &operator << (std::wostream&, const Palavra&);
 
 #endif

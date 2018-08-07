@@ -31,12 +31,16 @@ int main(void)
 	// Bee movie: (glhf reading the output)
 	try
 	{
-		Texto texto("bee-movie.txt");
+		Texto texto("texto.txt");
 		std::wofstream output("output.txt");
 		Timer::start("main salvarArquivo");
-		texto.salvarArquivo(output);
-		std::cout << Timer::elapsed<Timer::us>("main salvarArquivo").count()
-			<< "μs elapsed saving the file." << std::endl;
+
+		while(texto.avancarPalavra())
+			std::wcout << texto.getContexto() << std::endl;
+
+		// texto.salvarArquivo(output);
+		// std::cout << Timer::elapsed<Timer::us>("main salvarArquivo").count()
+		// 	<< "μs elapsed saving the file." << std::endl;
 	}
 	catch(std::runtime_error &err)
 	{

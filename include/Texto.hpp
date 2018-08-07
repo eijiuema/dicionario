@@ -11,6 +11,7 @@ class Texto
 {
 private:
 	std::string nomeArquivo;
+	int iterador = 0;
 	std::vector<std::wstring> delimitadores;
 	std::vector<std::unique_ptr<Palavra>> palavras;
 public:
@@ -18,8 +19,11 @@ public:
 	Texto(const std::string &);
 
 	void salvarArquivo(std::wostream &) const noexcept;
-	void modificarPalavra(const int &, const Palavra &);
-	const std::vector<std::unique_ptr<Palavra>>& getPalavras() const noexcept;
+
+	bool avancarPalavra();
+	Palavra getPalavra() const;
+	void setPalavra(const Palavra&);
+	std::wstring getContexto() const;
 };
 
 #endif

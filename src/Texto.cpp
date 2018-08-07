@@ -70,20 +70,55 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 void Texto::salvarArquivo(std::wostream& outputStream) const noexcept
 {
 	auto i = 0;
-	std::cout << palavras.size();
 	for(auto &palavra : palavras)
 		outputStream << delimitadores[i++] << *palavra;
 }
 
-void Texto::modificarPalavra(const int& pos, const Palavra& palavra)
+bool Texto::avancarPalavra()
 {
-	if(pos < 0 || pos > palavras.size())
-		throw new std::runtime_error("Posição da palavra está fora do vetor.");
-	// Replace the old word by a copy of the new word
-	palavras[pos].reset(new Palavra(palavra));
+	if(iterador < palavras.size() - 1) {
+		iterador++;
+		return true;
+	} else {
+		return false;
+	}
 }
 
-const std::vector<std::unique_ptr<Palavra>>& Texto::getPalavras() const noexcept
+Palavra Texto::getPalavra() const
 {
-	return palavras;
+	return *palavras[iterador];
 }
+
+void Texto::setPalavra(const Palavra& palavra)
+{
+	palavras[iterador].reset(new Palavra(palavra));
+}
+
+std::wstring Texto::getContexto() const
+{
+	std::wstring contexto = L"";
+
+	if(iterador > 0)
+		contexto = contexto + *palavras[iterador-1];
+
+	contexto+= delimitadores[iterador] + *palavras[iterador];
+
+	if(iterador < palavras.size() - 1)
+		contexto+= delimitadores[iterador+1] + *palavras[iterador+1];
+
+	return contexto;
+}
+
+
+// void Texto::modificarPalavra(const int& pos, const Palavra& palavra)
+// {
+// 	if(pos < 0 || pos > palavras.size())
+// 		throw new std::runtime_error("Posição da palavra está fora do vetor.");
+// 	// Replace the old word by a copy of the new word
+// 	palavras[pos].reset(new Palavra(palavra));
+// }
+
+// const std::vector<std::unique_ptr<Palavra>>& Texto::getPalavras() const noexcept
+// {
+// 	return palavras;
+// }
