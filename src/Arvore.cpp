@@ -1,5 +1,4 @@
 #include "Arvore.hpp"
-#include "Palavra.hpp"
 
 Arvore::No::No(const Palavra& p) : p(p)
 {
@@ -44,9 +43,9 @@ Arvore::~Arvore()
 
 }
 
-bool Arvore::vazia()
+bool Arvore::vazia() const
 {
-	return this->raiz = nullptr;
+	return this->raiz == nullptr;
 }
 
 void Arvore::insere(const Palavra& p)
@@ -59,10 +58,14 @@ void Arvore::remove(const Palavra& p)
 	this->raiz = removeNo(this->raiz, p);
 }
 
-void Arvore::printInOrder()
+void Arvore::printInOrder(std::wostream& wos) const
 {
-	printInOrderNo(this->raiz);
-	std::wcout << std::endl;
+	printInOrderNo(this->raiz, wos);
+}
+
+bool Arvore::busca(const Palavra& p) const
+{
+	return buscaNo(this->raiz, p) != nullptr;
 }
 
 Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
@@ -100,12 +103,8 @@ Arvore::No *Arvore::insereNo(Arvore::No *raiz, const Palavra& p)
 	return raiz;
 }
 
-bool Arvore::busca(const Palavra& p) const
+std::vector<Palavra> Arvore::buscaSemelhantes(const Palavra& p) const
 {
-	return buscaNo(this->raiz, p) != nullptr;
-}
-
-std::vector<Palavra> Arvore::buscaSemelhantes(const Palavra& p) {
 	std::vector<Palavra> semelhantes;
 	buscaNoSemelhante(this->raiz, p, semelhantes);
 	return semelhantes;
@@ -124,7 +123,7 @@ Arvore::No *Arvore::buscaNo(Arvore::No *raiz, const Palavra& p) const
 	}
 }
 
-void Arvore::buscaNoSemelhante(Arvore::No *raiz, const Palavra& p, std::vector<Palavra>& semelhantes)
+void Arvore::buscaNoSemelhante(Arvore::No *raiz, const Palavra& p, std::vector<Palavra>& semelhantes) const
 {
 	if(raiz == nullptr) {
 		return;
@@ -204,7 +203,7 @@ Arvore::No *Arvore::removeNo(Arvore::No *raiz, const Palavra& p) {
 	return raiz;
 }
 
-Arvore::No *Arvore::menorNo(Arvore::No *raiz)
+Arvore::No *Arvore::menorNo(Arvore::No *raiz) const
 {
 	if(raiz->esq == nullptr) {
 		return raiz;
@@ -213,14 +212,14 @@ Arvore::No *Arvore::menorNo(Arvore::No *raiz)
 	}
 }
 
-int Arvore::calcBal(Arvore::No *raiz)
+int Arvore::calcBal(Arvore::No *raiz) const
 {
 	if(raiz == nullptr)
 		return 0;
 	return altura(raiz->esq) - altura(raiz->dir);
 }
 
-int Arvore::altura(Arvore::No *raiz)
+int Arvore::altura(Arvore::No *raiz) const
 {
 	if(raiz == nullptr)
 		return 0;
@@ -255,12 +254,12 @@ Arvore::No *Arvore::rotD(Arvore::No *raiz)
 	return nova_raiz;
 }
 
-void Arvore::printInOrderNo(Arvore::No *raiz)
+void Arvore::printInOrderNo(Arvore::No *raiz, std::wostream& wos) const
 {
 	if(raiz == nullptr)
 		return;
 
-	printInOrderNo(raiz->esq);
-	std::wcout << raiz->p << ' ';
-	printInOrderNo(raiz->dir);
+	printInOrderNo(raiz->esq, wos);
+	wos << raiz->p << std::endl;
+	printInOrderNo(raiz->dir, wos);
 }

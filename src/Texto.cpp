@@ -3,28 +3,18 @@
 #include <iostream>
 #include <sstream>
 #include <locale>
-#ifdef TIME_TEXTO
-#	include "Timer.hpp"
-#endif
 
 Texto::Texto(const char* fn) : Texto(std::string(fn))
 { }
 
 Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras()
 {
-#ifdef TIME_TEXTO
-	double wordAvg = 0;
-	Timer::start("Texto::_ctor");
-#endif
 	int lastPos = -1;
 	std::wstringstream wordBuffer, punctBuffer;
-	std::locale loc("pt_BR.UTF-8");
+	std::locale loc("C.UTF-8");
 	std::wifstream inputStream(fn);
 	inputStream.imbue(loc);
 
-#ifdef TIME_TEXTO
-	Timer::start("Texto::_ctor loop");
-#endif
 	if(!inputStream)
 		throw std::runtime_error("Could not open file.");
 
@@ -52,31 +42,23 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 		punctBuffer.str(L"");
 		wordBuffer.str(L"");
 	}
-#ifdef TIME_TEXTO
-	wordAvg = (Timer::elapsed<Timer::us>("Texto::_ctor loop") / (double) palavras.size()).count();
-#endif
-
-	// Shrink the vector so that it only uses the necessary space
-	delimitadores.shrink_to_fit();
-	palavras.shrink_to_fit();
-
-#ifdef TIME_TEXTO
-		std::wcerr << Timer::elapsed<Timer::ms>("Texto::_ctor").count()
-			<< L"ms elapsed parsing the whole file, with an average of "
-			<< wordAvg << "μs per word, with a total of " << palavras.size() << " words." << std::endl;
-#endif
 }
 
-void Texto::salvarArquivo(std::wostream& outputStream) const noexcept
+void Texto::salvarArquivo(const std::string& arquivo) const
 {
+	std::wofstream wofs(arquivo);
+
+	if(!wofs)
+		throw std::runtime_error("Could not open file.");
+
 	auto i = 0;
 	for(auto &palavra : palavras)
-		outputStream << delimitadores[i++] << *palavra;
+		wofs << delimitadores[i++] << *palavra;
 }
 
 bool Texto::avancarPalavra()
 {
-	if(iterador < palavras.size() - 1) {
+	if(iterador < palavras.size() - 2) {
 		iterador++;
 		return true;
 	} else {
@@ -101,24 +83,10 @@ std::wstring Texto::getContexto() const
 	if(iterador > 0)
 		contexto = contexto + *palavras[iterador-1];
 
-	contexto+= delimitadores[iterador] + *palavras[iterador];
+	contexto+= delimitadores[iterador] + L"\"" + *palavras[iterador] + L"\"";
 
-	if(iterador < palavras.size() - 1)
+	if(iterador < palavras.size() - 2)
 		contexto+= delimitadores[iterador+1] + *palavras[iterador+1];
 
 	return contexto;
 }
-
-
-// void Texto::modificarPalavra(const int& pos, const Palavra& palavra)
-// {
-// 	if(pos < 0 || pos > palavras.size())
-// 		throw new std::runtime_error("Posição da palavra está fora do vetor.");
-// 	// Replace the old word by a copy of the new word
-// 	palavras[pos].reset(new Palavra(palavra));
-// }
-
-// const std::vector<std::unique_ptr<Palavra>>& Texto::getPalavras() const noexcept
-// {
-// 	return palavras;
-// }

@@ -6,7 +6,7 @@ LIB=./build/lib
 BIN=./build/bin
 DOCS=./build/docs
 LOGS=./build/logs
-LIBS=-lDicionario -lArvore -lPalavra -lTexto -lTimer
+LIBS=$(OBJ)/Dicionario.o $(OBJ)/Arvore.o $(OBJ)/Palavra.o $(OBJ)/Texto.o $(OBJ)/Corretor.o
 
 # Variáveis do compilador e flags
 CC=g++
@@ -14,13 +14,13 @@ CFLAGS=-I$(INC) $(EF) -std=c++14
 
 all: build docs
 
-debug: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
-	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -Og -DDEBUG -L$(LIB) $(LIBS) -o$(BIN)/corretor
+debug: main.o dirs Dicionario.a Arvore.a Palavra.a Texto.a Corretor.a
+	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -Og -DDEBUG $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 	cd $(BIN) && gdb corretor
 
-build: $(SRC)/main.cpp dirs Dicionario.a Arvore.a Palavra.a Texto.a
-	$(CC) $(SRC)/main.cpp $(CFLAGS) -L$(LIB) $(LIBS) -Ofast -o$(BIN)/corretor
+build: main.o dirs Dicionario.a Arvore.a Palavra.a Texto.a Corretor.a
+	$(CC) $(OBJ)/main.o $(CFLAGS) -Ofast $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 
 run: build
@@ -41,7 +41,10 @@ docs: dirs
 	$(MAKE) -C $(DOCS)/latex > $(LOGS)/pdftex.log
 	cp "$(DOCS)/latex/refman.pdf" "$(BIN)/documentação.pdf"
 
-Texto.a: $(SRC)/Texto.cpp $(INC)/Texto.hpp dirs Palavra.a Timer.a
+main.o: $(SRC)/main.cpp
+	$(CC) $(CFLAGS) -c $(SRC)/main.cpp -o$(OBJ)/main.o
+
+Texto.a: $(SRC)/Texto.cpp $(INC)/Texto.hpp dirs Palavra.a
 	$(CC) $(CFLAGS) -c $(SRC)/Texto.cpp -o$(OBJ)/Texto.o
 	ar -cr $(LIB)/libTexto.a $(OBJ)/Texto.o
 
@@ -53,9 +56,9 @@ Arvore.a: $(SRC)/Arvore.cpp $(INC)/Arvore.hpp dirs Palavra.a
 	$(CC) $(CFLAGS) -c $(SRC)/Arvore.cpp -o$(OBJ)/Arvore.o
 	ar -cr $(LIB)/libArvore.a $(OBJ)/Arvore.o
 
-Timer.a: $(SRC)/Timer.cpp $(INC)/Timer.hpp dirs
-	$(CC) $(CFLAGS) -c $(SRC)/Timer.cpp -o$(OBJ)/Timer.o
-	ar -cr $(LIB)/libTimer.a $(OBJ)/Timer.o
+Corretor.a: $(SRC)/Corretor.cpp $(INC)/Corretor.hpp dirs
+	$(CC) $(CFLAGS) -c $(SRC)/Corretor.cpp -o$(OBJ)/Corretor.o
+	ar -cr $(LIB)/libCorretor.a $(OBJ)/Corretor.o
 
 Palavra.a: $(SRC)/Palavra.cpp $(INC)/Palavra.hpp dirs
 	$(CC) $(CFLAGS) -c $(SRC)/Palavra.cpp -o$(OBJ)/Palavra.o

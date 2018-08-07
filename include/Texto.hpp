@@ -18,7 +18,7 @@ public:
 	Texto(const char*);
 	Texto(const std::string &);
 
-	void salvarArquivo(std::wostream &) const noexcept;
+	void salvarArquivo(const std::string&) const;
 
 	bool avancarPalavra();
 	Palavra getPalavra() const;

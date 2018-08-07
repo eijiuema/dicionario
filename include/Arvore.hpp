@@ -10,32 +10,32 @@ class Arvore {
 public:
 	Arvore();
 	~Arvore();
-	bool vazia();
-	void insere(const Palavra& p);
-	void remove(const Palavra& p);
-	bool busca(const Palavra& p) const;
-	std::vector<Palavra> buscaSemelhantes(const Palavra& p);
-	void printInOrder();
+	bool vazia() const;
+	void insere(const Palavra&);
+	void remove(const Palavra&);
+	bool busca(const Palavra&) const;
+	std::vector<Palavra> buscaSemelhantes(const Palavra&) const;
+	void printInOrder(std::wostream&) const;
 private:
 	class No {
 	public:
-		No(const Palavra& p);
-		No operator= (const Arvore::No& no);
+		No(const Palavra&);
+		No operator= (const Arvore::No&);
 		Palavra p;
 		No *esq, *dir;
 		int alt;
 	};
 	No *raiz;
-	No *insereNo(No *raiz, const Palavra& p);
-	No *buscaNo(No *raiz, const Palavra& p) const;
-	void buscaNoSemelhante(No *raiz, const Palavra& p, std::vector<Palavra>& semelhantes);
-	No *removeNo(No *raiz, const Palavra& p);
-	No *menorNo(No *raiz);
-	int calcBal(No *raiz);
-	int altura(No *raiz);
-	No *rotE(No *raiz);
-	No *rotD(No *raiz);
-	void printInOrderNo(No *raiz);
+	No *insereNo(No*, const Palavra&);
+	No *buscaNo(No*, const Palavra&) const;
+	void buscaNoSemelhante(No*, const Palavra&, std::vector<Palavra>&) const;
+	No *removeNo(No*, const Palavra&);
+	No *menorNo(No*) const;
+	int calcBal(No*) const;
+	int altura(No*) const;
+	No *rotE(No*);
+	No *rotD(No*);
+	void printInOrderNo(No*, std::wostream&) const;
 };
 
 #endif

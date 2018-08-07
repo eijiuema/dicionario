@@ -1,50 +1,39 @@
-#include "Texto.hpp"
-#include "Palavra.hpp"
-#include "Timer.hpp"
-#include "Dicionario.hpp"
 #include <iostream>
 #include <locale>
 #include <vector>
+#include "Corretor.hpp"
+
+void exibirMenu()
+{
+	std::wcout << "\033[2J\033[1;1H"
+			   << "[1] Corrigir"				<< std::endl
+			   << "[2] Ignorar"					<< std::endl
+			   << "[3] Exibir semelhantes" 		<< std::endl
+			   << "[4] Adicionar ao dicionário" << std::endl
+			   << "[5] Sair"					<< std::endl;
+}
 
 int main(void)
 {
-	setlocale(LC_ALL, "");
-	// Dicionario dicionario("dic.txt");
+	setlocale(LC_ALL, "C.UTF-8");
 
-	// std::vector<Palavra> semelhantes = dicionario.buscaSemelhantes(Palavra(L"abacaxi"));
+	std::string texto;
+	std::wcout << "Digite o caminho para o arquivo do texto (incluindo extensão): ";
+	std::cin >> texto;
 
-	// for(auto &palavra : semelhantes)
-	// 	std::wcout << palavra.getPalavra() << std::endl;
+	exibirMenu();
 
-	// std::cout << semelhantes.size() << std::endl;
+	Corretor corretor("dic.txt", texto);
 
-	Palavra palavra1(L"palavra1");
-	Palavra palavra2(L"palavra2");
-	Palavra palavra3(L"valavra3");
-	Palavra empty(L"");
-	// Testes:
-	std::cout << palavra1.semelhante(palavra2) << std::endl
-		<< palavra2.semelhante(palavra3) << std::endl
-		<< (palavra1 == palavra2) << std::endl
-		<< (palavra1 < palavra2) << std::endl
-		<< (palavra1 > palavra2) << std::endl;
-	// Bee movie: (glhf reading the output)
-	try
-	{
-		Texto texto("texto.txt");
-		std::wofstream output("output.txt");
-		Timer::start("main salvarArquivo");
-
-		while(texto.avancarPalavra())
-			std::wcout << texto.getContexto() << std::endl;
-
-		// texto.salvarArquivo(output);
-		// std::cout << Timer::elapsed<Timer::us>("main salvarArquivo").count()
-		// 	<< "μs elapsed saving the file." << std::endl;
+	while(corretor.avancarPalavra()) {
+		if(!corretor.checarPalavra()) {
+			std::wcout << corretor.getContexto() << std::endl;
+			corretor.setPalavra(Palavra(L"de"));
+			corretor.salvarPalavra();
+			std::wcout << corretor.checarPalavra() << std::endl;
+		}
 	}
-	catch(std::runtime_error &err)
-	{
-		std::cerr << err.what();
-		return 1;
-	}
+
+	corretor.salvarDicionario();
+	corretor.salvarTexto("output.txt");
 }

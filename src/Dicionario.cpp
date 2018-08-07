@@ -16,12 +16,29 @@ Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 	}
 }
 
+void Dicionario::inserePalavra(const Palavra& palavra)
+{
+	arvore.insere(palavra);
+}
+
 bool Dicionario::buscaPalavra(const Palavra& palavra) const noexcept
 {
 	return arvore.busca(palavra);
 }
 
-std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) noexcept
+std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) const noexcept
 {
 	return arvore.buscaSemelhantes(palavra);
+}
+
+void Dicionario::salvarArquivo() const
+{
+	std::wofstream wofs(arquivo);
+
+	wofs.imbue(std::locale(""));
+
+	if(!wofs)
+		throw std::runtime_error("Could not open file.");
+
+	arvore.printInOrder(wofs);
 }
