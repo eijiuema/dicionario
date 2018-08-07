@@ -18,7 +18,7 @@ public:
 	bool checarPalavra();
 	void setPalavra(const Palavra&);
 	void salvarPalavra();
-	std::wstring getContexto() const;
+	std::string getContexto() const;
 	std::vector<Palavra> buscaSemelhantes() const;
 	void salvarTexto(const std::string&) const;
 	void salvarDicionario() const;

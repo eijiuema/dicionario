@@ -2,7 +2,7 @@
 
 Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 {
-	std::wifstream inputStream(arquivo);
+	std::ifstream inputStream(arquivo);
 
 	inputStream.imbue(std::locale(""));
 
@@ -10,7 +10,7 @@ Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 		throw std::runtime_error("Could not open file.");
 
 	while(!inputStream.eof()) {
-		std::wstring palavra;
+		std::string palavra;
 		inputStream >> palavra;
 		arvore.insere(Palavra(palavra));
 	}
@@ -33,7 +33,7 @@ std::vector<Palavra> Dicionario::buscaSemelhantes(const Palavra& palavra) const 
 
 void Dicionario::salvarArquivo() const
 {
-	std::wofstream wofs(arquivo);
+	std::ofstream wofs(arquivo);
 
 	wofs.imbue(std::locale(""));
 
