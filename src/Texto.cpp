@@ -2,7 +2,7 @@
 #include <exception>
 #include <iostream>
 #include <sstream>
-#include <cctype>
+#include <locale>
 #ifdef TIME_TEXTO
 #	include "Timer.hpp"
 #endif
