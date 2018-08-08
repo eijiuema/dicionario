@@ -1,6 +1,7 @@
 #ifndef PALAVRA
 #define PALAVRA
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -13,6 +14,7 @@ public:
 	Palavra(const Palavra&);
 	Palavra operator=(const Palavra& p);
 	int semelhante(const Palavra&) const;
+	Palavra minuscula() const;
 	bool operator == (const Palavra&) const;
 	bool operator < (const Palavra&) const;
 	bool operator > (const Palavra&) const;

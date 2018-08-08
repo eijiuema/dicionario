@@ -58,9 +58,16 @@ void Arvore::remove(const Palavra& p)
 	this->raiz = removeNo(this->raiz, p);
 }
 
-void Arvore::printInOrder(std::wostream& outputStream) const
+void Arvore::print(print_order order, std::wostream& outputStream) const
 {
-	printInOrderNo(this->raiz, outputStream);
+	switch(order) {
+		case print_order::in:
+			printInOrderNo(this->raiz, outputStream);
+		break;
+		case print_order::level:
+			printLevelOrderNo(this->raiz, outputStream);
+		break;
+	}
 }
 
 bool Arvore::busca(const Palavra& p) const
@@ -262,4 +269,31 @@ void Arvore::printInOrderNo(Arvore::No *raiz, std::wostream& outputStream) const
 	printInOrderNo(raiz->esq, outputStream);
 	outputStream << raiz->p << std::endl;
 	printInOrderNo(raiz->dir, outputStream);
+}
+
+void Arvore::printLevelOrderNo(Arvore::No *raiz, std::wostream& outputStream) const
+{
+	if(raiz == nullptr)
+		return;
+
+	std::queue<No*> queue;
+
+	queue.push(raiz);
+
+	No* atual;
+
+	while(!queue.empty()) {
+
+		atual = queue.front();
+
+		outputStream << atual->p << std::endl;
+
+		queue.pop();
+
+		if(atual->esq != nullptr)
+			queue.push(atual->esq);
+
+		if(atual->dir != nullptr)
+			queue.push(atual->dir);
+	}
 }

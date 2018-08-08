@@ -11,12 +11,16 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 {
 	int lastPos = -1;
 	std::wstringstream wordBuffer, punctBuffer;
-	std::locale loc("C.UTF-8");
+	std::locale loc("");
 	std::wifstream inputStream(fn);
 	inputStream.imbue(loc);
 
 	if(!inputStream)
-		throw std::runtime_error("Could not open file.");
+		throw std::runtime_error("Erro ao abrir o arquivo.");
+
+	if(inputStream.peek() == std::wifstream::traits_type::eof())
+		throw std::runtime_error("Arquivo vazio.");
+
 
 	while(!inputStream.eof())
 	{
@@ -51,7 +55,7 @@ void Texto::salvarArquivo(const std::string& arquivo) const
 {
 	std::wofstream outputStream(arquivo);
 
-	outputStream.imbue(std::locale("C.UTF-8"));
+	outputStream.imbue(std::locale(""));
 
 	if(!outputStream)
 		throw std::runtime_error("Could not open file.");
@@ -86,12 +90,12 @@ std::wstring Texto::getContexto() const
 	std::wstring contexto = L"";
 
 	if(iterador > 0)
-		contexto = contexto + *palavras[iterador-1];
+		contexto+= *palavras[iterador-1] + delimitadores[iterador];
 
-	contexto+= delimitadores[iterador] + L"\"" + *palavras[iterador] + L"\"";
+	contexto+=  L"\"" + *palavras[iterador] + L"\"" + delimitadores[iterador+1];
 
 	if(iterador < palavras.size() - 2)
-		contexto+= delimitadores[iterador+1] + *palavras[iterador+1];
+		contexto+= *palavras[iterador+1] + delimitadores[iterador+2];
 
 	return contexto;
 }

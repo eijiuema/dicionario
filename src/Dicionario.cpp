@@ -7,7 +7,7 @@ Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 	inputStream.imbue(std::locale(""));
 
 	if(!inputStream)
-		throw std::runtime_error("Could not open file.");
+		throw std::runtime_error("Erro ao abrir o arquivo.");
 
 	while(!inputStream.eof()) {
 		std::wstring palavra;
@@ -35,10 +35,10 @@ void Dicionario::salvarArquivo() const
 {
 	std::wofstream outputStream(arquivo);
 
-	outputStream.imbue(std::locale("C.UTF-8"));
+	outputStream.imbue(std::locale(""));
 
 	if(!outputStream)
 		throw std::runtime_error("Could not open file.");
 
-	arvore.printInOrder(outputStream);
+	arvore.print(Arvore::print_order::level, outputStream);
 }

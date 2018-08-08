@@ -3,11 +3,15 @@
 
 #include <iostream>
 #include <stack>
+#include <queue>
 #include <vector>
 #include "Palavra.hpp"
 
 class Arvore {
 public:
+
+	enum class print_order {in, level};
+
 	Arvore();
 	~Arvore();
 	bool vazia() const;
@@ -15,7 +19,7 @@ public:
 	void remove(const Palavra&);
 	bool busca(const Palavra&) const;
 	std::vector<Palavra> buscaSemelhantes(const Palavra&) const;
-	void printInOrder(std::wostream&) const;
+	void print(print_order, std::wostream&) const;
 private:
 	class No {
 	public:
@@ -36,6 +40,7 @@ private:
 	No *rotE(No*);
 	No *rotD(No*);
 	void printInOrderNo(No*, std::wostream&) const;
+	void printLevelOrderNo(No*, std::wostream&) const;
 };
 
 #endif

@@ -10,7 +10,7 @@ bool Corretor::avancarPalavra()
 
 bool Corretor::checarPalavra()
 {
-	Palavra palavra = texto.getPalavra();
+	Palavra palavra = texto.getPalavra().minuscula();
 
 	if(!dicionario.buscaPalavra(palavra)) {
 
@@ -35,7 +35,7 @@ void Corretor::setPalavra(const Palavra& palavra)
 
 void Corretor::salvarPalavra()
 {
-	dicionario.inserePalavra(texto.getPalavra());
+	dicionario.inserePalavra(texto.getPalavra().minuscula());
 }
 
 std::wstring Corretor::getContexto() const
@@ -45,7 +45,7 @@ std::wstring Corretor::getContexto() const
 
 std::vector<Palavra> Corretor::buscaSemelhantes() const
 {
-	return dicionario.buscaSemelhantes(texto.getPalavra());
+	return dicionario.buscaSemelhantes(texto.getPalavra().minuscula());
 }
 
 void Corretor::salvarTexto(const std::string& arquivo) const

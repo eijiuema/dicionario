@@ -22,6 +22,13 @@ int Palavra::semelhante(const Palavra& palavra) const
 	}
 }
 
+Palavra Palavra::minuscula() const
+{
+	std::wstring minuscula = palavra;
+	std::transform(palavra.begin(), palavra.end(), minuscula.begin(), ::towlower);
+	return Palavra(minuscula);
+}
+
 bool Palavra::operator == (const Palavra& p) const
 {
 	return palavra == p.palavra;
