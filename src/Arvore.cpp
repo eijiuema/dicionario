@@ -58,9 +58,9 @@ void Arvore::remove(const Palavra& p)
 	this->raiz = removeNo(this->raiz, p);
 }
 
-void Arvore::printInOrder(std::ostream& os) const
+void Arvore::printInOrder(std::wostream& outputStream) const
 {
-	printInOrderNo(this->raiz, os);
+	printInOrderNo(this->raiz, outputStream);
 }
 
 bool Arvore::busca(const Palavra& p) const
@@ -254,12 +254,12 @@ Arvore::No *Arvore::rotD(Arvore::No *raiz)
 	return nova_raiz;
 }
 
-void Arvore::printInOrderNo(Arvore::No *raiz, std::ostream& os) const
+void Arvore::printInOrderNo(Arvore::No *raiz, std::wostream& outputStream) const
 {
 	if(raiz == nullptr)
 		return;
 
-	printInOrderNo(raiz->esq, os);
-	os << raiz->p << std::endl;
-	printInOrderNo(raiz->dir, os);
+	printInOrderNo(raiz->esq, outputStream);
+	outputStream << raiz->p << std::endl;
+	printInOrderNo(raiz->dir, outputStream);
 }

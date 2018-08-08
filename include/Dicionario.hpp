@@ -2,6 +2,8 @@
 #define DICIONARIO
 
 #include <string>
+#include <codecvt>
+#include <locale>
 #include <fstream>
 #include <vector>
 #include <memory>

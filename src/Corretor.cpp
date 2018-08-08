@@ -38,7 +38,7 @@ void Corretor::salvarPalavra()
 	dicionario.inserePalavra(texto.getPalavra());
 }
 
-std::string Corretor::getContexto() const
+std::wstring Corretor::getContexto() const
 {
 	return texto.getContexto();
 }

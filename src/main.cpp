@@ -1,64 +1,72 @@
 #include <iostream>
 #include <locale>
 #include <vector>
-#include <cctype>
+#include <codecvt>
 #include "Corretor.hpp"
 
 int main()
 {
-	setlocale(LC_ALL, "C.UTF-8");
-	// std::cout << "Árvore" << std::endl;
-	// std::string arvore;
-	// std::cin >> arvore;
-	// std::cout << arvore << std::endl;
+	setlocale(LC_ALL, "pt_BR.UTF-8");
+	std::locale locale("pt_BR.UTF-8");
 
-	// std::ifstream arquivo("dic.txt");
+	std::wcout.imbue(locale);
+	std::wcin.imbue(locale);
 
-	// if(arquivo)
-	// 	while(!arquivo.eof())
-	// 		std::cout << (char) arquivo.get();
-	// return 0;
+	std::wstring texto;
 
-	std::string texto;
-	std::cout << "Digite o caminho para o arquivo do texto (incluindo extensão): ";
-	std::cin >> texto;
+	std::wcout << L"Digite o caminho para o arquivo do texto (incluindo extensão): ";
+	std::wcin >> texto;
 
-	// try	{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
-		Corretor corretor("dic.txt", (std::string) texto);
+	try	{
+
+		Corretor corretor("dic.txt", converter.to_bytes(texto));
 
 		while(corretor.avancarPalavra()) {
 			if(!corretor.checarPalavra()) {
-				std::cout << "\033[2J\033[1;1H"
-						   << "[1] Corrigir"				<< std::endl
-						   << "[2] Ignorar"					<< std::endl
-						   << "[3] Exibir semelhantes" 		<< std::endl
-						   << "[4] Adicionar ao dicionário" << std::endl
-						   << "[5] Sair"					<< std::endl
-						   									<< std::endl
-						   << corretor.getContexto()		<< std::endl
-						   									<< std::endl
-						   << "Digite o número da opção desejada [1-5]: ";
+				std::wcout << L"\033[2J\033[1;1H"
+						   << L"[1] Corrigir"					<< std::endl
+						   << L"[2] Ignorar"					<< std::endl
+						   << L"[3] Exibir semelhantes" 		<< std::endl
+						   << L"[4] Adicionar ao dicionário" 	<< std::endl
+						   << L"[5] Sair"						<< std::endl
+						   										<< std::endl
+						   << corretor.getContexto()			<< std::endl
+						   										<< std::endl
+						   << L"Digite o número da opção desejada [1-5]: ";
 
-				std::string opcao;
-				std::cin >> opcao;
+				std::wstring opcao;
+				std::wcin >> opcao;
 
 				switch(opcao[0]) {
-					case '1':
+
+					case '1': {
+						std::wstring palavra;
+						std::wcout << "Digite a palavra corrigida: ";
+						std::wcin >> palavra;
+						corretor.setPalavra(Palavra(palavra));
+					}
+
+					break;
+					case '2':
+					break;
+					case '3':
+					break;
+					case '4':
+					break;
+					case '5':
+					break;
 					default:
 					break;
 				}
 			}
 		}
 
+		corretor.salvarDicionario();
 		corretor.salvarTexto("output.txt");
 
-	// 	// exibirMenuFinal();
-
-	// 	corretor.salvarDicionario();
-	// 	corretor.salvarTexto("output.txt");
-
-	// } catch(std::runtime_error& e) {
-
-	// }
+	} catch(std::runtime_error& e) {
+		std::wcout << e.what() << std::endl;
+	}
 }

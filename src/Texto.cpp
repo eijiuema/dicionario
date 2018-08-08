@@ -10,9 +10,9 @@ Texto::Texto(const char* fn) : Texto(std::string(fn))
 Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras()
 {
 	int lastPos = -1;
-	std::stringstream wordBuffer, punctBuffer;
-	std::locale loc("");
-	std::ifstream inputStream(fn);
+	std::wstringstream wordBuffer, punctBuffer;
+	std::locale loc("C.UTF-8");
+	std::wifstream inputStream(fn);
 	inputStream.imbue(loc);
 
 	if(!inputStream)
@@ -31,32 +31,34 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 		lastPos = inputStream.tellg();
 
 		// Read all leading punctuation and spaces
-		while(ispunct((char) inputStream.peek(), loc) || isspace((char) inputStream.peek(), loc))
-			punctBuffer << (char) inputStream.get();
+		while(ispunct((wchar_t) inputStream.peek(), loc) || isspace((char) inputStream.peek(), loc))
+			punctBuffer << (wchar_t) inputStream.get();
 		// Then go after the word itself
-		while(!(isalnum((char) inputStream.peek(), loc) || inputStream.peek() == '-' || inputStream.peek() == '\''))
-			wordBuffer << (char) inputStream.get();
+		while(isalnum((wchar_t) inputStream.peek(), loc) || inputStream.peek() == '-' || inputStream.peek() == '\'')
+			wordBuffer << (wchar_t) inputStream.get();
 
 		// // After all of this wcreate a safe pointer and store the buffers' info in it
 		delimitadores.push_back(punctBuffer.str());
 		palavras.emplace_back(new Palavra(wordBuffer.str()));
 
 		// // Clear the buffers' contents so we don't get trash
-		punctBuffer.str("");
-		wordBuffer.str("");
+		punctBuffer.str(L"");
+		wordBuffer.str(L"");
 	}
 }
 
 void Texto::salvarArquivo(const std::string& arquivo) const
 {
-	std::ofstream ofs(arquivo);
+	std::wofstream outputStream(arquivo);
 
-	if(!ofs)
+	outputStream.imbue(std::locale("C.UTF-8"));
+
+	if(!outputStream)
 		throw std::runtime_error("Could not open file.");
 
 	auto i = 0;
 	for(auto &palavra : palavras)
-		ofs << delimitadores[i++] << *palavra;
+		outputStream << delimitadores[i++] << *palavra;
 }
 
 bool Texto::avancarPalavra()
@@ -79,14 +81,14 @@ void Texto::setPalavra(const Palavra& palavra)
 	palavras[iterador].reset(new Palavra(palavra));
 }
 
-std::string Texto::getContexto() const
+std::wstring Texto::getContexto() const
 {
-	std::string contexto = "";
+	std::wstring contexto = L"";
 
 	if(iterador > 0)
 		contexto = contexto + *palavras[iterador-1];
 
-	contexto+= delimitadores[iterador] + "\"" + *palavras[iterador] + "\"";
+	contexto+= delimitadores[iterador] + L"\"" + *palavras[iterador] + L"\"";
 
 	if(iterador < palavras.size() - 2)
 		contexto+= delimitadores[iterador+1] + *palavras[iterador+1];

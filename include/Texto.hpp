@@ -12,7 +12,7 @@ class Texto
 private:
 	std::string nomeArquivo;
 	int iterador = 0;
-	std::vector<std::string> delimitadores;
+	std::vector<std::wstring> delimitadores;
 	std::vector<std::unique_ptr<Palavra>> palavras;
 public:
 	Texto(const char*);
@@ -23,7 +23,7 @@ public:
 	bool avancarPalavra();
 	Palavra getPalavra() const;
 	void setPalavra(const Palavra&);
-	std::string getContexto() const;
+	std::wstring getContexto() const;
 };
 
 #endif

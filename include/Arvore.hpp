@@ -15,7 +15,7 @@ public:
 	void remove(const Palavra&);
 	bool busca(const Palavra&) const;
 	std::vector<Palavra> buscaSemelhantes(const Palavra&) const;
-	void printInOrder(std::ostream&) const;
+	void printInOrder(std::wostream&) const;
 private:
 	class No {
 	public:
@@ -35,7 +35,7 @@ private:
 	int altura(No*) const;
 	No *rotE(No*);
 	No *rotD(No*);
-	void printInOrderNo(No*, std::ostream&) const;
+	void printInOrderNo(No*, std::wostream&) const;
 };
 
 #endif
