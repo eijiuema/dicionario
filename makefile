@@ -7,20 +7,19 @@ BIN=./build/bin
 DOCS=./build/docs
 LOGS=./build/logs
 LIBS=$(OBJ)/Dicionario.o $(OBJ)/Arvore.o $(OBJ)/Palavra.o $(OBJ)/Texto.o $(OBJ)/Corretor.o
-
 # Variáveis do compilador e flags
 CC=g++
-CFLAGS=-I$(INC) $(EF) -std=c++14
+OPTFLAGS=-Ofast
+CFLAGS=-I$(INC) $(EF) $(OPTFLAGS) -std=c++14
 
 all: build docs
 
-debug: main.o dirs Dicionario.a Arvore.a Palavra.a Texto.a Corretor.a
-	$(CC) $(SRC)/main.cpp $(CFLAGS) -g -Og -DDEBUG $(LIBS) -o$(BIN)/corretor
-	cp data/* $(BIN)/.
+debug:
+	$(MAKE) build "EF=-ggdb -DDEBUG" OPTFLAGS=-O0
 	cd $(BIN) && gdb corretor
 
 build: main.o dirs Dicionario.a Arvore.a Palavra.a Texto.a Corretor.a
-	$(CC) $(OBJ)/main.o $(CFLAGS) -Ofast $(LIBS) -o$(BIN)/corretor
+	$(CC) $(OBJ)/main.o $(CFLAGS) $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 
 run: build

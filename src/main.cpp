@@ -113,5 +113,8 @@ int main()
 
 sair:
 	corretor.salvarDicionario();
-	corretor.salvarTexto("output.txt");
+	std::wcout << L"Digite o nome do arquivo para salvar (deixe vazio para salvar no orignal): ";
+	std::wstring path;
+	std::wcin >> path;
+	corretor.salvarTexto(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(path));
 }
