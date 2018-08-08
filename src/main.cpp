@@ -80,7 +80,7 @@ int main()
 					std::vector<Palavra> semelhantes = corretor.buscaSemelhantes();
 
 					if(semelhantes.size() == 0) {
-						std::wcout << L"Não há palavras semelhantes." << std::endl;
+						std::wcout << std::endl << L"Não há palavras semelhantes." << std::endl;
 						goto menu;
 					}
 

@@ -35,7 +35,7 @@ void Corretor::setPalavra(const Palavra& palavra)
 
 void Corretor::salvarPalavra()
 {
-	dicionario.inserePalavra(texto.getPalavra().minuscula());
+	dicionario.inserePalavra(texto.getPalavra());
 }
 
 std::wstring Corretor::getContexto() const

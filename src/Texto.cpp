@@ -41,11 +41,13 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras
 		while(isalnum((wchar_t) inputStream.peek(), loc) || inputStream.peek() == '-' || inputStream.peek() == '\'')
 			wordBuffer << (wchar_t) inputStream.get();
 
-		// // After all of this wcreate a safe pointer and store the buffers' info in it
+		// After all of this wcreate a safe pointer and store the buffers' info in it
 		delimitadores.push_back(punctBuffer.str());
-		palavras.emplace_back(new Palavra(wordBuffer.str()));
 
-		// // Clear the buffers' contents so we don't get trash
+		if(!wordBuffer.str().empty())
+			palavras.emplace_back(new Palavra(wordBuffer.str()));
+
+		// Clear the buffers' contents so we don't get trash
 		punctBuffer.str(L"");
 		wordBuffer.str(L"");
 	}
@@ -63,11 +65,14 @@ void Texto::salvarArquivo(const std::string& arquivo) const
 	auto i = 0;
 	for(auto &palavra : palavras)
 		outputStream << delimitadores[i++] << *palavra;
+
+	if(i < delimitadores.size())
+		outputStream << delimitadores[i];
 }
 
 bool Texto::avancarPalavra()
 {
-	if(iterador < palavras.size() - 2) {
+	if(iterador < palavras.size() - 1) {
 		iterador++;
 		return true;
 	} else {
@@ -90,12 +95,15 @@ std::wstring Texto::getContexto() const
 	std::wstring contexto = L"";
 
 	if(iterador > 0)
-		contexto+= *palavras[iterador-1] + delimitadores[iterador];
+		contexto+= delimitadores[iterador-1] + *palavras[iterador-1];
 
-	contexto+=  L"\"" + *palavras[iterador] + L"\"" + delimitadores[iterador+1];
+	contexto+=  delimitadores[iterador] + L"\"" + *palavras[iterador] + L"\"";
 
-	if(iterador < palavras.size() - 2)
-		contexto+= *palavras[iterador+1] + delimitadores[iterador+2];
+	if(iterador < palavras.size() - 1)
+		contexto+= delimitadores[iterador+1] + *palavras[iterador+1];
+
+	if(iterador == palavras.size() - 1)
+		contexto+= delimitadores[iterador+1];
 
 	return contexto;
 }
