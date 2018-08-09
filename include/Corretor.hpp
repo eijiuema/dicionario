@@ -29,7 +29,6 @@ public:
 	 *
 	 * @param dicionario O caminho para o arquivo do dicionário
 	 * @param texto O caminho para o arquivo de texto
-	 * @callgraph
 	 */
 	Corretor(std::string dicionario, std::string texto);
 
@@ -39,7 +38,6 @@ public:
 	 * @return true O avanço foi realizado com sucesso
 	 * @return false O avanço falhou (fim do arquivo)
 	 * @see Texto::avancarPalavra()
-	 * @callgraph
 	 */
 	bool avancarPalavra();
 
@@ -48,7 +46,6 @@ public:
 	 *
 	 * @return true A palavra existe no dicionário
 	 * @return false A palavra não existe no dicionário
-	 * @callgraph
 	 */
 	bool checarPalavra();
 
@@ -56,7 +53,6 @@ public:
 	 * @brief Substitui a palavra atual no texto por outra
 	 * @param palavra A palavra que irá substituir a atual
 	 * @see Texto::setPalavra(const Palavra&)
-	 * @callgraph
 	 */
 	void setPalavra(const Palavra& palavra);
 	void salvarPalavra();
