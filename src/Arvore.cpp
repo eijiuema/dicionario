@@ -12,6 +12,7 @@ Arvore::No Arvore::No::operator= (const Arvore::No& no)
 	esq = no.esq;
 	dir = no.dir;
 	alt = no.alt;
+	return *this;
 }
 
 Arvore::Arvore()
