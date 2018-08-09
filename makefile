@@ -10,7 +10,7 @@ LIBS=$(OBJ)/Dicionario.o $(OBJ)/Arvore.o $(OBJ)/Palavra.o $(OBJ)/Texto.o $(OBJ)/
 # Variáveis do compilador e flags
 CC=g++
 OPTFLAGS=-Ofast
-CFLAGS=-I$(INC) $(EF) $(OPTFLAGS) -std=c++14
+CXXLAGS=-I$(INC) $(EF) $(OPTFLAGS) -std=c++14
 
 all: build docs
 
@@ -19,14 +19,14 @@ debug:
 	cd $(BIN) && gdb corretor
 
 build: main.o dirs Dicionario.a Arvore.a Palavra.a Texto.a Corretor.a
-	$(CC) $(OBJ)/main.o $(CFLAGS) $(LIBS) -o$(BIN)/corretor
+	$(CC) $(OBJ)/main.o $(CXXLAGS) $(LIBS) -o$(BIN)/corretor
 	cp data/* $(BIN)/.
 
 run: build
 	cd $(BIN) && ./corretor
 
 Dicionario: Dicionario.a Arvore.o Palavra.o
-	$(CC) $(CFLAGS) -L$(LIB) $(LIBS) -o$(BIN)/dicionario
+	$(CC) $(CXXLAGS) -L$(LIB) $(LIBS) -o$(BIN)/dicionario
 
 dirs:
 	mkdir -p $(OBJ) $(LIB) $(BIN) $(DOCS) $(LOGS)
@@ -37,7 +37,7 @@ clean:
 docs: dirs
 	doxygen doxygen.conf > $(LOGS)/doxygen.log
 	cd $(DOCS)/latex
-	$(MAKE) -C $(DOCS)/latex > $(LOGS)/pdftex.log
+	$(MAKE) -C $(DOCS)/latex
 	cp "$(DOCS)/latex/refman.pdf" "$(BIN)/documentação.pdf"
 
 main.o: $(SRC)/main.cpp
