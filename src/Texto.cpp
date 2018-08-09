@@ -7,7 +7,7 @@
 Texto::Texto(const char* fn) : Texto(std::string(fn))
 { }
 
-Texto::Texto(const std::string &fn) : nomeArquivo(fn), delimitadores(), palavras()
+Texto::Texto(const std::string &fn) : nomeArquivo(fn), iterador(0), delimitadores(), palavras()
 {
 	int lastPos = -1;
 	std::wstringstream wordBuffer, punctBuffer;
@@ -62,7 +62,7 @@ void Texto::salvarArquivo(const std::string& arquivo) const
 	if(!outputStream)
 		throw std::runtime_error("Could not open file.");
 
-	auto i = 0;
+	size_t i = 0;
 	for(auto &palavra : palavras)
 		outputStream << delimitadores[i++] << *palavra;
 
