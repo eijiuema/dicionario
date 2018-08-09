@@ -22,7 +22,7 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), iterador(0), delimitadore
 		throw std::runtime_error("Arquivo vazio.");
 
 
-	while(!inputStream.eof())
+	while(inputStream.peek() != std::wifstream::traits_type::eof())
 	{
 		if(lastPos == inputStream.tellg())
 		{
@@ -60,7 +60,7 @@ void Texto::salvarArquivo(const std::string& arquivo) const
 	outputStream.imbue(std::locale(""));
 
 	if(!outputStream)
-		throw std::runtime_error("Could not open file.");
+		throw std::runtime_error("Erro ao salvar o arquivo.");
 
 	size_t i = 0;
 	for(auto &palavra : palavras)

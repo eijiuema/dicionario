@@ -43,6 +43,21 @@ Corretor inicializarCorretor()
 	}
 }
 
+void salvar(Corretor& corretor)
+{
+	corretor.salvarDicionario();
+
+	try {
+		std::wcout << L"Digite o nome do arquivo para salvar: ";
+		std::wstring path;
+		std::wcin >> path;
+		corretor.salvarTexto(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(path));
+	} catch(std::runtime_error& e) {
+		std::wcout << e.what() << std::endl;
+		salvar(corretor);
+	}
+}
+
 int main()
 {
 	setlocale(LC_ALL, "");
@@ -111,10 +126,7 @@ int main()
 		}
 	} while(corretor.avancarPalavra());
 
-sair:
-	corretor.salvarDicionario();
-	std::wcout << L"Digite o nome do arquivo para salvar (deixe vazio para salvar no orignal): ";
-	std::wstring path;
-	std::wcin >> path;
-	corretor.salvarTexto(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(path));
+	sair:
+
+	salvar(corretor);
 }

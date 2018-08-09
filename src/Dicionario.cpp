@@ -11,11 +11,8 @@ Dicionario::Dicionario(const std::string& arquivo) : arquivo(arquivo)
 	if(!inputStream)
 		throw std::runtime_error("Erro ao abrir o arquivo.");
 
-	if(inputStream.peek() == std::wifstream::traits_type::eof())
-		throw std::runtime_error("Arquivo vazio.");
 
-
-	while(!inputStream.eof())
+	while(inputStream.peek() != std::wifstream::traits_type::eof())
 	{
 		if(lastPos == inputStream.tellg())
 		{
