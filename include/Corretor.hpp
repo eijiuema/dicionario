@@ -37,8 +37,8 @@ public:
 	/**
 	 * Avança para a próxima palavra do Texto
 	 *
-	 * @return true se o avanço foi realizado com sucesso
-	 * @return false se o avanço falhou (fim do arquivo)
+	 * @return `true` se o avanço foi realizado com sucesso
+	 * @return `false` se o avanço falhou (fim do arquivo)
 	 * @see Texto::avancarPalavra()
 	 */
 	bool avancarPalavra();
@@ -46,8 +46,6 @@ public:
 	/**
 	 * Checa se a palavra atual existe no dicionário
 	 *
-	 * @return true se a palavra existe no dicionário
-	 * @return false se a palavra não existe no dicionário
 	 * @see Dicionario::buscaPalavra(const Palavra& palavra)
 	 */
 	bool checarPalavra();
@@ -69,7 +67,6 @@ public:
 	/**
 	 * Retorna o contexto da palavra atual
 	 *
-	 * @return std::wstring com o contexto da palavra atual
 	 * @see Texto::getContexto()
 	 */
 	std::wstring getContexto() const;
@@ -78,7 +75,7 @@ public:
 	 * Busca o dicionário por palavras semelhantes
 	 * (usando a versão lower-case da palavra)
 	 *
-	 * @return std::vector<Palavra> com todas as palavras semelhantes à providenciada
+	 * @return Todas as palavras semelhantes à fornecida
 	 * @see Palavra::minuscula()
 	 * @see Palavra::semelhante()
 	 * @see Dicionario::buscaSemelhantes(const Palavra& palavra)
@@ -103,7 +100,7 @@ public:
 	/**
 	 * Retorna todos os erros encontrados até o momento
 	 *
-	 * @return std::map<Palavra, int> com as quantidades de erros encontrados por palavra.
+	 * @return Lista(`std::map` indexado por Palavra) de quantidades de erros encontrados por palavra.
 	 * @see Corretor::erros
 	 */
 	std::map<Palavra, int> getErros() const;

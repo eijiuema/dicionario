@@ -39,47 +39,40 @@ public:
 	 * primeiras letras de ambas.
 	 *
 	 * @param palavra A palavra com a qual comparar
-	 * @return int contendo -1 se esta palavra tiver as duas letras
-	 * alfabeticamente antes da palavra fornecida, 0 se forem iguais
-	 * e 1 se esta palavra estiver alfabeticamente depois da palavra
-	 * fornecida
+	 * @return 0 caso as palavras sejam semelhantes
+	 * @return -1 caso esta palavra esteja alfabéticamente antes da
+	 * palavra fornecida
+	 * @return 1 caso esta palavra esteja alfabéticamente depois da
+	 * palavra fornecida
 	 */
 	int semelhante(const Palavra& palavra) const;
 
 	/**
 	 * Retorna a palavra convertida para *lower-case*
 	 *
-	 * @return Palavra com seus caractéres convertidos para *lower-case*
+	 * @return Uma palavra em *lower-case*
 	 */
 	Palavra minuscula() const;
 
 	/**
 	 * Confere se o conteúdo desta palavra é igual ao da palavra fornecida
-	 *
-	 * @return bool
 	 */
 	bool operator == (const Palavra& palavra) const;
 
 	/**
 	 * Confere se esta palavra estaria antes da palavra fornecida em uma
 	 * ordenação alfabética
-	 *
-	 * @return bool
 	 */
 	bool operator < (const Palavra& palavra) const;
 
 	/**
 	 * Confere se esta palavra estaria após à palavra fornecida em uma ordenação
 	 * alfabética
-	 *
-	 * @return bool
 	 */
 	bool operator > (const Palavra& palavra) const;
 
 	/**
 	 * Retorna a string contendo a palavra armazenada
-	 *
-	 * @return std::wstring
 	 */
 	std::wstring getPalavra() const;
 };
