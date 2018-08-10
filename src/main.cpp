@@ -48,7 +48,7 @@ void salvar(Corretor& corretor)
 	corretor.salvarDicionario();
 
 	try {
-		std::wcout << L"Digite o nome do arquivo para salvar: ";
+		std::wcout << L"Digite o nome do arquivo para salvar (incluindo extensão): ";
 		std::wstring path;
 		std::wcin >> path;
 		corretor.salvarTexto(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(path));
