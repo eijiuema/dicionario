@@ -6,16 +6,32 @@ LIB=./build/lib
 BIN=./build/bin
 DOCS=./build/docs
 LOGS=./build/logs
+PROD=./build/prod
 LIBS=$(OBJ)/Dicionario.o $(OBJ)/Arvore.o $(OBJ)/Palavra.o $(OBJ)/Texto.o $(OBJ)/Corretor.o
 # Variáveis do compilador e flags
 CXX=g++
 OPTFLAGS=-Ofast
 CXXFLAGS=-I$(INC) $(EF) $(OPTFLAGS) -std=c++14 -Wall
+# Variáveis do zip
+ZIPNAME=distribute
 
-all: clean build docs
+all: clean build docs distribute
+
+distribute: clean docs
+	cp data/dic.txt $(PROD)/dic.txt
+	ls $(DOCS)
+	cp -r $(DOCS)/* $(PROD)/.
+	mv $(PROD)/html $(PROD)/DOCUMENTAÇÃO
+	# mkdir -p "$(PROD)/src" "$(PROD)/include"
+	cp -r src $(PROD)/src
+	cp -r include $(PROD)/include
+	echo build: > $(PROD)/Makefile
+	echo "    $(CXX) -Iinclude/ -std=c++14 -Ofast -o corretor src/main.cpp $(subst .o,.cpp,$(subst $(OBJ),src, $(LIBS)))" >> $(PROD)/Makefile
+	cd $(PROD) && zip -db -dc -du -r -v -9 "../$(ZIPNAME).zip" . -i "*"
+
 
 dirs:
-	mkdir -p $(OBJ) $(LIB) $(BIN) $(DOCS) $(DOCS)-tmp $(LOGS)
+	mkdir -p $(OBJ) $(LIB) $(BIN) $(DOCS) $(DOCS)-tmp $(LOGS) $(PROD)
 
 clean:
 	rm -rf *~ ./build
