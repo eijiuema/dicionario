@@ -22,11 +22,11 @@ distribute: clean docs
 	ls $(DOCS)
 	cp -r $(DOCS)/* $(PROD)/.
 	mv $(PROD)/html $(PROD)/DOCUMENTAÇÃO
-	# mkdir -p "$(PROD)/src" "$(PROD)/include"
 	cp -r src $(PROD)/src
 	cp -r include $(PROD)/include
-	echo build: > $(PROD)/Makefile
-	echo "    $(CXX) -Iinclude/ -std=c++14 -Ofast -o corretor src/main.cpp $(subst .o,.cpp,$(subst $(OBJ),src, $(LIBS)))" >> $(PROD)/Makefile
+	echo all: > $(PROD)/Makefile
+	echo "	$(CXX) -Iinclude/ -std=c++14 -Ofast -o corretor src/main.cpp $(subst .o,.cpp,$(subst $(OBJ),src, $(LIBS)))" >> $(PROD)/Makefile
+	echo >> $(PROD)/Makefile
 	cd $(PROD) && zip -db -dc -du -r -v -9 "../$(ZIPNAME).zip" . -i "*"
 
 
