@@ -3,9 +3,6 @@
 Palavra::Palavra(const std::wstring palavra) : palavra(palavra)
 { }
 
-Palavra::Palavra(const Palavra& p) : palavra(p.palavra)
-{ }
-
 Palavra Palavra::operator=(const Palavra& p)
 {
 	return Palavra(p.palavra);
