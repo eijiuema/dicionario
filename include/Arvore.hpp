@@ -21,6 +21,10 @@
 class Arvore {
 public:
 
+	/**
+	 * Enumerador que define a ordem de impressão dos nós
+	 * @see Arvore::print(print_order, std::wostream& stream)
+	 */
 	enum class print_order {in, level};
 
 	/**
@@ -37,8 +41,8 @@ public:
 	/**
 	 * Checa se a árvore está vazia
 	 *
-	 * @return *true* se a árvore estiver vazia
-	 * @return *false* se a árvore não estiver vazia
+	 * @return `true` se a árvore estiver vazia
+	 * @return `false` se a árvore não estiver vazia
 	 */
 	bool vazia() const;
 
@@ -60,8 +64,8 @@ public:
 	 * Checa se uma palavra está na árvore
 	 *
 	 * @param palavra A palavra que será buscada
-	 * @return *true* se a palavra estiver na árvore
-	 * @return *false* se a palavra não estiver na árvore
+	 * @return `true` se a palavra estiver na árvore
+	 * @return `false` se a palavra não estiver na árvore
 	 * @see Palavra
 	 */
 	bool busca(const Palavra& palavra) const;
@@ -78,11 +82,11 @@ public:
 
 	/**
 	 * Imprime as palavras da árvore
-	 * @param Arvore::print_order A ordem da impressão
+	 * @param ordem A ordem da impressão
 	 * @param stream A *stream* alvo da impressão
 	 * @see Arvore::print_order
 	 */
-	void print(print_order, std::wostream& stream) const;
+	void print(print_order ordem, std::wostream& stream) const;
 
 private:
 	/**
@@ -104,9 +108,13 @@ private:
 		Palavra p;
 
 		/**
-		 * Ponteiros dos nós filhos esquerdo e direito
+		 * Filho esquerdo do nó
 		 */
-		No *esq, *dir;
+		No *esq,
+		/**
+		 * Filho direito do nó
+		 */
+			*dir;
 
 		/**
 		 * Altura do nó
@@ -126,6 +134,7 @@ private:
 	 * @param no Ponteiro do nó raiz da iteração
 	 * @param palavra A palavra a ser inserida
 	 * @return Arvore::No* Ponteiro do nó raiz no fim da iteração
+	 * @see Arvore::insere(const Palavra& palavra)
 	 * @see Arvore::No
 	 * @see Palavra
 	 */
@@ -138,6 +147,7 @@ private:
 	 * @param palavra A palavra a ser buscada
 	 * @return Arvore::No* Ponteiro do nó que contém a palavra se a árvore conter a palavra
 	 * @return nullptr se a árvore não conter a palavra
+	 * @see Arvore::busca(const Palavra& palavra)
 	 * @see Arvore::No
 	 * @see Palavra
 	 */
@@ -149,7 +159,8 @@ private:
 	 *
 	 * @param no Ponteiro do nó raiz da iteração
 	 * @param palavra A palavra a ser comparada
-	 * @param palavras Palavras semelhantes
+	 * @param semelhantes Vetor de palavras semelhantes
+	 * @see Arvore::buscaSemelhantes(const Palavra& palavra)
 	 * @see Arvore::No
 	 * @see Palavra
 	 */
@@ -161,6 +172,7 @@ private:
 	 * @param no Ponteiro do nó raiz da iteração
 	 * @param palavra A palavra a ser removida
 	 * @return Arvore::No* Ponteiro do nó raiz no fim da iteração
+	 * @see Arvore::remove(const Palavra& palavra)
 	 * @see Arvore::No
 	 * @see Palavra
 	 */
