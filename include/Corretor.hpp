@@ -107,8 +107,19 @@ public:
 	 */
 	std::map<Palavra, int> getErros() const;
 private:
+	/**
+	 * O Dicionário utilizado pelo Corretor.
+	 */
 	Dicionario dicionario;
+
+	/**
+	 * O Texto lido pelo Corretor.
+	 */
 	Texto texto;
+
+	/**
+	 * Lista de quantidades de erros encontrados por palavra.
+	 */
 	std::map<Palavra, int> erros;
 };
 

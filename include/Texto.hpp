@@ -22,9 +22,30 @@
 class Texto
 {
 private:
+	/**
+	 * O nome do arquivo passado para o construtor
+	 */
 	std::string nomeArquivo;
+
+	/**
+	 * O iterador (posição atual no texto)
+	 */
 	size_t iterador;
+
+	/**
+	 * O vetor de delimitadores lidos pelo construtor.
+	 * (sempre terá um delimitador a mais do que o vetor
+	 * de palavras)
+	 */
 	std::vector<std::wstring> delimitadores;
+
+	/**
+	 * Um vetor com ponteiros das Palavras lidas pelo
+	 * construtor.
+	 * (std::unique_ptr<T> garante que memória não irá
+	 * vazar e que somente um local terá a posse do
+	 * ponteiro)
+	 */
 	std::vector<std::unique_ptr<Palavra>> palavras;
 public:
 	/**
