@@ -91,13 +91,33 @@ private:
 	 */
 	class No {
 	public:
+
+		/**
+		 * Cria um nó com uma palavra
+		 * @param palavra Palavra que o nó conterá
+		 */
 		No(const Palavra& palavra);
-		No operator= (const Arvore::No& no);
+
+		/**
+		 * Palavra contida pelo nó
+		 */
 		Palavra p;
+
+		/**
+		 * Ponteiros dos nós filhos esquerdo e direito
+		 */
 		No *esq, *dir;
+
+		/**
+		 * Altura do nó
+		 */
 		int alt;
 	};
 
+
+	/**
+	 * Raíz da árvore
+	 */
 	No *raiz;
 
 	/**

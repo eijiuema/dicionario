@@ -6,15 +6,6 @@ Arvore::No::No(const Palavra& p) : p(p)
 	this->alt = 1;
 }
 
-Arvore::No Arvore::No::operator= (const Arvore::No& no)
-{
-	p = no.p;
-	esq = no.esq;
-	dir = no.dir;
-	alt = no.alt;
-	return *this;
-}
-
 Arvore::Arvore()
 {
 	this->raiz = nullptr;
