@@ -22,9 +22,30 @@
 class Texto
 {
 private:
+	/**
+	 * O nome do arquivo passado para o construtor
+	 */
 	std::string nomeArquivo;
+
+	/**
+	 * O iterador (posição atual no texto)
+	 */
 	size_t iterador;
+
+	/**
+	 * O vetor de delimitadores lidos pelo construtor.
+	 * (sempre terá um delimitador a mais do que o vetor
+	 * de palavras)
+	 */
 	std::vector<std::wstring> delimitadores;
+
+	/**
+	 * Um vetor com ponteiros das Palavras lidas pelo
+	 * construtor.
+	 * (std::unique_ptr<T> garante que memória não irá
+	 * vazar e que somente um local terá a posse do
+	 * ponteiro)
+	 */
 	std::vector<std::unique_ptr<Palavra>> palavras;
 public:
 	/**
@@ -32,6 +53,7 @@ public:
 	 * o conteúdo no arquivo fornecido
 	 *
 	 * @param fn O caminho para o arquivo
+	 * @see Texto::Texto(const std::string& fn)
 	 */
 	Texto(const char* fn);
 
@@ -64,6 +86,8 @@ public:
 	 * Retorna a palavra atual
 	 *
 	 * @return Palavra A palavra atual
+	 * @see Texto::avancarPalavra()
+	 * @see Texto::setPalavra()
 	 */
 	Palavra getPalavra() const;
 
@@ -71,6 +95,8 @@ public:
 	 * Substituir a palavra atual por uma nova
 	 *
 	 * @param palavra A palavra que deverá substituir a palavra atual
+	 * @see Texto::avancarPalavra()
+	 * @see Texto::getPalavra()
 	 */
 	void setPalavra(const Palavra& palavra);
 

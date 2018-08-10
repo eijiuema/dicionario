@@ -21,7 +21,7 @@ clean:
 	rm -rf *~ ./build
 
 docs: dirs
-	doxygen doxygen.conf > $(LOGS)/doxygen.log 2>&1
+	doxygen doxygen.conf > $(LOGS)/doxygen.log
 	$(MAKE) -C "$(DOCS)-tmp/latex" > $(LOGS)/doxygen.latex.log 2>&1
 	cp "$(DOCS)-tmp/latex/refman.pdf" "$(DOCS)/documentação.pdf"
 	rm -rf "$(DOCS)/html" && mkdir -p "$(DOCS)/html" && mv -f "$(DOCS)-tmp/html" "$(DOCS)/."
