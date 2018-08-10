@@ -103,7 +103,8 @@ public:
 	/**
 	 * Retorna todos os erros encontrados até o momento
 	 *
-	 * @return std::map<Palavra, int> com os erros em pares de `<palavra encontrada, quantas vezes ela foi encontrada>`
+	 * @return std::map<Palavra, int> com as quantidades de erros encontrados por palavra.
+	 * @see Corretor::erros
 	 */
 	std::map<Palavra, int> getErros() const;
 private:

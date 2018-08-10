@@ -53,6 +53,7 @@ public:
 	 * o conteúdo no arquivo fornecido
 	 *
 	 * @param fn O caminho para o arquivo
+	 * @see Texto::Texto(const std::string& fn)
 	 */
 	Texto(const char* fn);
 
@@ -85,6 +86,8 @@ public:
 	 * Retorna a palavra atual
 	 *
 	 * @return Palavra A palavra atual
+	 * @see Texto::avancarPalavra()
+	 * @see Texto::setPalavra()
 	 */
 	Palavra getPalavra() const;
 
@@ -92,6 +95,8 @@ public:
 	 * Substituir a palavra atual por uma nova
 	 *
 	 * @param palavra A palavra que deverá substituir a palavra atual
+	 * @see Texto::avancarPalavra()
+	 * @see Texto::getPalavra()
 	 */
 	void setPalavra(const Palavra& palavra);
 
