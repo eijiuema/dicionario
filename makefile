@@ -23,7 +23,7 @@ clean:
 docs: dirs
 	doxygen doxygen.conf > $(LOGS)/doxygen.log
 	$(MAKE) -C "$(DOCS)-tmp/latex" > $(LOGS)/doxygen.latex.log 2>&1
-	cp "$(DOCS)-tmp/latex/refman.pdf" "$(DOCS)/documentação.pdf"
+	cp "$(DOCS)-tmp/latex/refman.pdf" "$(DOCS)/DOCUMENTAÇÃO.pdf"
 	rm -rf "$(DOCS)/html" && mkdir -p "$(DOCS)/html" && mv -f "$(DOCS)-tmp/html" "$(DOCS)/."
 
 build: dirs main.o Dicionario.o Arvore.o Palavra.o Texto.o Corretor.o
