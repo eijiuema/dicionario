@@ -34,6 +34,9 @@ Arvore::~Arvore()
 		atual = stack.top();
 		stack.pop();
 
+		if(!atual)
+			continue;
+
 		if(atual->esq != nullptr)
 			stack.push(atual->esq);
 		if(atual->dir != nullptr)
