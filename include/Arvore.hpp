@@ -9,9 +9,9 @@
 #define AVL
 
 #include <iostream>
+#include <vector>
 #include <stack>
 #include <queue>
-#include <vector>
 #include "Palavra.hpp"
 
 /**

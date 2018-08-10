@@ -1,8 +1,4 @@
 #include "Texto.hpp"
-#include <exception>
-#include <iostream>
-#include <sstream>
-#include <locale>
 
 Texto::Texto(const char* fn) : Texto(std::string(fn))
 { }

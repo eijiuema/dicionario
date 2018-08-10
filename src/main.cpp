@@ -1,9 +1,10 @@
+#include <exception>
 #include <iostream>
 #include <iomanip>
-#include <cmath>
+#include <codecvt>
 #include <locale>
 #include <vector>
-#include <codecvt>
+#include <cmath>
 #include "Corretor.hpp"
 
 int inputInt(const std::wstring& string, const int comeco, const int final)

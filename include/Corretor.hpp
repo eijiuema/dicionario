@@ -7,9 +7,7 @@
 #ifndef CORRETOR
 #define CORRETOR
 
-#include <fstream>
 #include <string>
-#include <vector>
 #include <map>
 
 #include "Dicionario.hpp"

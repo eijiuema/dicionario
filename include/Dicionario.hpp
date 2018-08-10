@@ -6,13 +6,12 @@
 #ifndef DICIONARIO
 #define DICIONARIO
 
-#include <string>
-#include <codecvt>
-#include <locale>
+#include <exception>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <locale>
 #include <vector>
-#include <memory>
 
 #include "Arvore.hpp"
 #include "Palavra.hpp"

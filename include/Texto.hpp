@@ -6,8 +6,11 @@
 
 #ifndef TEXTO_H
 #define TEXTO_H
+#include <exception>
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <locale>
 #include <vector>
 #include <string>
 #include <memory>
