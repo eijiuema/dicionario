@@ -3,11 +3,6 @@
 Palavra::Palavra(const std::wstring palavra) : palavra(palavra)
 { }
 
-Palavra Palavra::operator=(const Palavra& p)
-{
-	return Palavra(p.palavra);
-}
-
 int Palavra::semelhante(const Palavra& palavra) const
 {
 	if(this->palavra.substr(0, 2) < palavra.palavra.substr(0, 2)) {
