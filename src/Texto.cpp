@@ -18,9 +18,6 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), iterador(0), delimitadore
 	if(!inputStream)
 		throw std::runtime_error("Erro ao abrir o arquivo.");
 
-	if(inputStream.peek() == std::wifstream::traits_type::eof())
-		throw std::runtime_error("Arquivo vazio.");
-
 
 	while(inputStream.peek() != std::wifstream::traits_type::eof())
 	{
@@ -51,6 +48,9 @@ Texto::Texto(const std::string &fn) : nomeArquivo(fn), iterador(0), delimitadore
 		punctBuffer.str(L"");
 		wordBuffer.str(L"");
 	}
+
+	if(palavras.empty())
+		throw std::runtime_error("Nenhuma palavra encontrada.");
 }
 
 void Texto::salvarArquivo(const std::string& arquivo) const

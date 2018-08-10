@@ -62,7 +62,7 @@ void Dicionario::salvarArquivo() const
 	outputStream.imbue(std::locale(""));
 
 	if(!outputStream)
-		throw std::runtime_error("Could not open file.");
+		throw std::runtime_error("Erro ao abrir o arquivo.");
 
 	arvore.print(Arvore::print_order::in, outputStream);
 }
