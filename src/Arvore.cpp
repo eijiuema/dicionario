@@ -11,6 +11,29 @@ Arvore::Arvore()
 	this->raiz = nullptr;
 }
 
+Arvore::Arvore(const Arvore& arvore)
+{
+	std::queue<No*> queue;
+	queue.push(arvore.raiz);
+
+	No* atual;
+	while(!queue.empty()) {
+		atual = queue.front();
+		queue.pop();
+
+		if(!atual)
+			continue;
+
+		if(atual->esq != nullptr)
+			queue.push(atual->esq);
+
+		if(atual->dir != nullptr)
+			queue.push(atual->dir);
+
+		this->insere(atual->p);
+	}
+}
+
 Arvore::~Arvore()
 {
 

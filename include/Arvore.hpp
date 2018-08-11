@@ -33,9 +33,15 @@ public:
 	Arvore();
 
 	/**
+	 * Cria uma árvore a partir de outra. (cópia)
+	 *
+	 * @param arvore A arvore a ser copiada
+	 */
+	Arvore(const Arvore& arvore);
+
+	/**
 	 * Destrói a árvore liberando a memória de todos os seus nós
 	 */
-
 	~Arvore();
 
 	/**
